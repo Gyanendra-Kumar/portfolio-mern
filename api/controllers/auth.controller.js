@@ -1,7 +1,8 @@
 import User from "../model/user.model.js";
 import bcrypt from "bcrypt";
+import { errorHandler } from "../utils/error.js";
 
-export const signup = async (req, res) => {
+export const signup = async (req, res, next) => {
   //   console.log(req.body);
   const { username, email, password } = req.body;
 
@@ -13,11 +14,12 @@ export const signup = async (req, res) => {
     email === "" ||
     password === ""
   ) {
-    return res.status(400).json({ message: "All fields are required!" });
+    next(errorHandler(400, "All fields are required!"));
   }
 
   const duplicateUser = await User.findOne({ username: username }).exec();
-  if (duplicateUser) return res.sendStatus(409);
+  if (duplicateUser)
+    return next(errorHandler(409, "Duplicate username or email"));
 
   try {
     // hashed password
@@ -31,6 +33,6 @@ export const signup = async (req, res) => {
     console.log(newUser);
     res.status(201).json({ success: `New user ${username} created!` });
   } catch (error) {
-    res.status(500).json({ message: error.message });
+    next(error);
   }
 };

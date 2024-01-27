@@ -17,10 +17,17 @@ app.use(express.json());
 // Enable cors for all routes
 app.use(cors());
 
+app.listen(3000, () => {
+  console.log(`Server is listening on port 3000!`);
+});
+
 // routes for api
 app.use("/api/user", userRoutes);
 app.use("/api/auth", authRoutes);
 
-app.listen(3000, () => {
-  console.log(`Server is listening on port 3000!`);
+// middlewares
+app.use((err, req, res, next) => {
+  const statusCode = err.statusCode || 500;
+  const message = err.message || "Internal Server error";
+  res.status(statusCode).json({ success: false, statusCode, message });
 });
