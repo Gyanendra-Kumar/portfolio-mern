@@ -50,7 +50,7 @@ const FooterComponent = () => {
                     target="_blank"
                     className="flex gap-1 text-md items-center font-semibold"
                   >
-                    <FaLinkedin size="20" /> LinkedIn
+                    <FaLinkedin size="20" className="text-[#0077B5]" /> LinkedIn
                   </Link>
                 </Footer.Link>
 
@@ -59,7 +59,7 @@ const FooterComponent = () => {
                     to="mailto:kgyanendra1998@gmail.com"
                     className="flex gap-1 text-md items-center font-semibold"
                   >
-                    <MdEmail size="20" />
+                    <MdEmail size="20" className="text-[#BB001B]" />
                     Email
                   </Link>
                 </Footer.Link>
@@ -70,7 +70,7 @@ const FooterComponent = () => {
                     target="_blank"
                     className="flex gap-1 text-md items-center font-semibold"
                   >
-                    <FaGithub size="20" />
+                    <FaGithub size="20" className="text-black" />
                     GitHub
                   </Link>
                 </Footer.Link>
@@ -111,7 +111,7 @@ const FooterComponent = () => {
           <Link
             to="https://www.linkedin.com/in/gyanendra-kumar-22975b18b"
             target="_blank"
-            className="flex gap-1 text-md items-center font-semibold"
+            className="flex gap-1 text-md items-center font-semibold text-[#0077B5]"
           >
             <FaLinkedin size="20" /> LinkedIn
           </Link>
