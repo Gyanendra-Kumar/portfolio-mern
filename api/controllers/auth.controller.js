@@ -1,6 +1,7 @@
 import User from "../model/user.model.js";
 import bcrypt from "bcrypt";
 import { errorHandler } from "../utils/error.js";
+import jwt from "jsonwebtoken";
 
 export const signup = async (req, res, next) => {
   //   console.log(req.body);
@@ -48,11 +49,27 @@ export const signIn = async (req, res, next) => {
   try {
     // validating User Email
     const validUser = await User.findOne({ email: email }).exec();
+
+    if (!validUser) return next(errorHandler(404, "Invalid Credentials!"));
+
     // validating password
     const validPassword = bcrypt.compareSync(password, validUser.password);
 
-    if (!validPassword || !validUser)
-      next(errorHandler(404, "Invalid Credentials!"));
+    if (!validPassword) return next(errorHandler(404, "Invalid Credentials!"));
+
+    const token = jwt.sign(
+      {
+        id: validUser._id,
+      },
+      process.env.JWT_SECRET_KEY
+    );
+
+    const { password: _pass, ...rest } = validUser._doc;
+
+    res
+      .status(200)
+      .cookie("access_token", token, { httpOnly: true })
+      .json(rest);
   } catch (error) {
     next(error);
   }
