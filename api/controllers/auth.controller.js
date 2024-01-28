@@ -36,3 +36,24 @@ export const signup = async (req, res, next) => {
     next(error);
   }
 };
+
+// SIGN IN CONTROLLER
+export const signIn = async (req, res, next) => {
+  const { email, password } = req.body;
+
+  if (!email || !password || email === "" || password === "") {
+    next(errorHandler(400, "All Fields are required!"));
+  }
+
+  try {
+    // validating User Email
+    const validUser = await User.findOne({ email: email }).exec();
+    // validating password
+    const validPassword = bcrypt.compareSync(password, validUser.password);
+
+    if (!validPassword || !validUser)
+      next(errorHandler(404, "Invalid Credentials!"));
+  } catch (error) {
+    next(error);
+  }
+};
