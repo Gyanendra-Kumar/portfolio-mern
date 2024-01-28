@@ -2,15 +2,24 @@ import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Alert, Button, Label, Spinner, TextInput } from "flowbite-react";
 import Logo from "../components/Logo";
+import {
+  signInFailure,
+  signInStart,
+  signInSuccess,
+} from "../redux/user/userSlice";
+import { useDispatch, useSelector } from "react-redux";
 
 const SignIn = () => {
   const [formData, setFormData] = useState({
     email: "",
     password: "",
   });
-  const [isLoading, setIsLoading] = useState(false);
-  const [errorMessage, setErrorMessage] = useState(null);
+  const dispatch = useDispatch();
   const navigate = useNavigate();
+
+  const { loading: isLoading, error: errorMessage } = useSelector(
+    (state) => state.user
+  );
 
   const handleInputChange = (e) => {
     const { id, value } = e.target;
@@ -26,12 +35,11 @@ const SignIn = () => {
     e.preventDefault();
     // console.log(formData);
     if (!formData.email || !formData.password) {
-      return setErrorMessage("Please fill out all fields.");
+      return dispatch(signInFailure("All Fields are required"));
     }
 
     try {
-      setIsLoading(true);
-      setErrorMessage(null);
+      dispatch(signInStart());
 
       const res = await fetch("/api/auth/signin", {
         method: "POST",
@@ -41,16 +49,15 @@ const SignIn = () => {
       const data = await res.json();
       // console.log(data);
       if (data.success === false) {
-        setIsLoading(false);
-        return setErrorMessage(data.message);
+        dispatch(signInFailure(data.message));
       }
 
-      setIsLoading(false);
-      navigate("/");
+      if (res.ok) {
+        dispatch(signInSuccess(data));
+        navigate("/");
+      }
     } catch (error) {
-      setErrorMessage(error.message);
-      setIsLoading(false);
-      return;
+      dispatch(signInFailure(error.message));
     }
   };
 
@@ -77,7 +84,6 @@ const SignIn = () => {
                 type="email"
                 placeholder="Enter Email"
                 id="email"
-                required
                 value={formData.email}
                 onChange={handleInputChange}
               />
@@ -89,7 +95,6 @@ const SignIn = () => {
                 type="password"
                 placeholder="Enter Password"
                 id="password"
-                required
                 value={formData.password}
                 onChange={handleInputChange}
               />
