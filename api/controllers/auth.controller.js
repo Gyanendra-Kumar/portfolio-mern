@@ -2,7 +2,6 @@ import User from "../model/user.model.js";
 import bcrypt from "bcrypt";
 import { errorHandler } from "../utils/error.js";
 import jwt from "jsonwebtoken";
-import { response } from "express";
 
 // SIGN UP CONTROLLER
 export const signup = async (req, res, next) => {

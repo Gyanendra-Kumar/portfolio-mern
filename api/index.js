@@ -1,6 +1,7 @@
 import express from "express";
-import mongoose from "mongoose";
 import dotenv from "dotenv";
+import cookieParser from "cookie-parser";
+
 dotenv.config();
 import cors from "cors";
 
@@ -13,6 +14,7 @@ connectDB();
 
 const app = express();
 app.use(express.json());
+app.use(cookieParser());
 
 // Enable cors for all routes
 app.use(cors());
