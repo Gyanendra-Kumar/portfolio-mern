@@ -9,17 +9,21 @@ import {
 } from "flowbite-react";
 import { Link, useLocation } from "react-router-dom";
 import { AiOutlineSearch } from "react-icons/ai";
-import { FaMoon } from "react-icons/fa";
+import { FaMoon, FaSun } from "react-icons/fa";
 import Logo from "./Logo";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { MdDashboard } from "react-icons/md";
 import { FaSignOutAlt } from "react-icons/fa";
+import { toggleTheme } from "../redux/theme/themeSlice";
 
 const Header = () => {
   const path = useLocation().pathname;
   //   const pathname = path.split("/").filter((x) => x);
   //   console.log(pathname);
   const { currentUser } = useSelector((state) => state.user);
+  const { theme } = useSelector((state) => state.theme);
+
+  const dispatch = useDispatch();
 
   return (
     <Navbar className="border-b-2">
@@ -39,8 +43,12 @@ const Header = () => {
       </Button>
 
       <div className="flex gap-2 md:order-2">
-        <Button className="w-12 h-10 hidden sm:flex" color="gray">
-          <FaMoon />
+        <Button
+          className="w-12 h-10 hidden sm:flex"
+          color="gray"
+          onClick={() => dispatch(toggleTheme())}
+        >
+          {theme === "light" ? <FaSun /> : <FaMoon />}
         </Button>
 
         {currentUser ? (

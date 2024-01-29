@@ -10,6 +10,7 @@ import {
 } from "./pages";
 import Header from "./components/Header";
 import FooterComponent from "./components/Footer";
+import PrivateRoute from "./components/PrivateRoute";
 
 const App = () => {
   return (
@@ -22,7 +23,10 @@ const App = () => {
         <Route path="/sign-in" element={<SignIn />} />
         <Route path="/sign-up" element={<SignUp />} />
         <Route path="/projects" element={<Projects />} />
-        <Route path="/dashboard" element={<Dashboard />} />
+
+        <Route element={<PrivateRoute />}>
+          <Route path="/dashboard" element={<Dashboard />} />
+        </Route>
       </Routes>
       <FooterComponent />
     </BrowserRouter>
