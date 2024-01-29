@@ -5,6 +5,13 @@ import { storage } from "../firebase/firebaseConfig";
 import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
 import { CircularProgressbar } from "react-circular-progressbar";
 import "react-circular-progressbar/dist/styles.css";
+import {
+  updateFailure,
+  updateStart,
+  updateSuccess,
+} from "../redux/user/userSlice";
+import { useDispatch } from "react-redux";
+import { toast } from "react-toastify";
 
 const DashboardProfile = () => {
   const [imageFile, setImageFile] = useState(null);
@@ -12,11 +19,16 @@ const DashboardProfile = () => {
   const [imageFileUploadingProgress, setImageFileUploadingProgress] =
     useState(null);
   const [imageFileUploadingError, setImageFileUploadingError] = useState(null);
+  const [formData, setFormData] = useState({});
+  const [imageFileUploading, setImageFileUploading] = useState(false);
+  const [updateUserSuccess, setUpdateUserSuccess] = useState(null);
+
+  const dispatch = useDispatch();
 
   const filePickerRef = useRef();
 
   const { currentUser } = useSelector((state) => state.user);
-  //   console.log(currentUser);
+  // console.log(currentUser);
 
   const handleImageChange = (e) => {
     const file = e.target.files[0];
@@ -27,8 +39,6 @@ const DashboardProfile = () => {
     }
   };
 
-  //   console.log(imageFile, imageFileUrl);
-
   useEffect(() => {
     if (imageFile) {
       uploadImage();
@@ -36,6 +46,7 @@ const DashboardProfile = () => {
   }, [imageFile]);
 
   const uploadImage = () => {
+    setImageFileUploading(true);
     setImageFileUploadingError(null);
     // console.log("uploading Image...");
     const storageRef = ref(storage, `portfolio/${Date.now()}${imageFile.name}`);
@@ -61,21 +72,67 @@ const DashboardProfile = () => {
         setImageFileUploadingProgress(null);
         setImageFile(null);
         setImageFileUrl(null);
+        setImageFileUploading(false);
       },
       () => {
         getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
-          //   console.log("File available at", downloadURL);
           setImageFileUrl(downloadURL);
-          console.log(downloadURL);
+          setFormData({ ...formData, profilePhoto: downloadURL });
+          setImageFileUploading(false);
         });
       }
     );
   };
 
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.id]: e.target.value });
+  };
+
+  console.log(formData);
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    if (Object.keys(formData).length === 0) {
+      toast.warning("No changes were made.");
+      return;
+    }
+
+    if (imageFileUploading) {
+      toast.warning("Please wait, Image is uploading!");
+      return;
+    }
+
+    try {
+      dispatch(updateStart());
+      const res = await fetch(`/api/user/update/${currentUser._id}`, {
+        method: "PUT",
+        headers: {
+          "content-type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
+
+      const data = await res.json();
+
+      if (!res.ok) {
+        dispatch(updateFailure(data.message));
+      } else {
+        dispatch(updateSuccess(data));
+        toast.success("Updated successfully.");
+      }
+    } catch (error) {
+      dispatch(updateFailure(error.message));
+    }
+  };
+
   return (
     <div className="max-w-lg mx-auto p-3 w-full">
       <h1 className="my-7 text-center font-semibold text-3xl">Profile</h1>
-      <form className="flex flex-col items-center gap-4">
+      <form
+        className="flex flex-col items-center gap-4"
+        onSubmit={handleSubmit}
+      >
         <input
           type="file"
           accept="image/*"
@@ -130,14 +187,21 @@ const DashboardProfile = () => {
             id="username"
             placeholder="username"
             defaultValue={currentUser.username}
+            onChange={handleChange}
           />
           <TextInput
             type="email"
             id="email"
             placeholder="email"
             defaultValue={currentUser.email}
+            onChange={handleChange}
           />
-          <TextInput type="password" id="password" placeholder="Password" />
+          <TextInput
+            type="password"
+            id="password"
+            placeholder="Password"
+            onChange={handleChange}
+          />
           <Button
             type="submit"
             gradientDuoTone="purpleToBlue"
