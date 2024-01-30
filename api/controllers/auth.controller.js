@@ -62,8 +62,12 @@ export const signIn = async (req, res, next) => {
     const token = jwt.sign(
       {
         id: validUser._id,
+        isAdmin: validUser.isAdmin,
+        isEditor: validUser.isEditor,
+        isUser: validUser.isUser,
       },
-      process.env.JWT_SECRET_KEY
+      process.env.JWT_SECRET_KEY,
+      { expiresIn: "120s" }
     );
 
     const { password: _pass, ...rest } = validUser._doc;
@@ -85,7 +89,16 @@ export const google = async (req, res, next) => {
     const user = await User.findOne({ email });
     if (user) {
       // CHECKING IF USER EXISTS
-      const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET_KEY);
+      const token = jwt.sign(
+        {
+          id: user._id,
+          isAdmin: user.isAdmin,
+          isEditor: user.isEditor,
+          isUser: user.isUser,
+        },
+        process.env.JWT_SECRET_KEY,
+        { expiresIn: "120s" }
+      );
       const { password, ...rest } = user._doc;
       res
         .status(200)
@@ -110,7 +123,16 @@ export const google = async (req, res, next) => {
       await newUser.save();
 
       // creating token
-      const token = jwt.sign({ id: newUser._id }, process.env.JWT_SECRET_KEY);
+      const token = jwt.sign(
+        {
+          id: newUser._id,
+          isAdmin: newUser.isAdmin,
+          isEditor: newUser.isEditor,
+          isUser: newUser.isUser,
+        },
+        process.env.JWT_SECRET_KEY,
+        { expiresIn: "120s" }
+      );
       const { password, ...rest } = newUser._doc;
       res
         .status(200)
