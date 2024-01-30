@@ -16,6 +16,7 @@ import {
 } from "../redux/user/userSlice";
 import { useDispatch } from "react-redux";
 import { HiOutlineExclamationCircle } from "react-icons/hi";
+import { toast } from "react-toastify";
 
 const DashboardProfile = () => {
   const [imageFile, setImageFile] = useState(null);
