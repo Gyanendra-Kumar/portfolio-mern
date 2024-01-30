@@ -3,10 +3,14 @@ import { Link, useLocation } from "react-router-dom";
 import { Sidebar } from "flowbite-react";
 import { HiUser } from "react-icons/hi";
 import { FaSignOutAlt } from "react-icons/fa";
+import { signoutSuccess } from "../redux/user/userSlice";
+import { useDispatch } from "react-redux";
 
 const DashboardSidebar = () => {
   const location = useLocation();
   const [tab, setTab] = useState("");
+
+  const dispatch = useDispatch();
 
   useEffect(() => {
     const urlParams = new URLSearchParams(location.search);
@@ -17,6 +21,24 @@ const DashboardSidebar = () => {
       setTab(tabFromUrl);
     }
   }, [location.search]);
+
+  // sign out
+  const handleSignOut = async () => {
+    try {
+      const res = await fetch(`/api/user/signout`, {
+        method: "POST",
+      });
+      const data = await res.json();
+
+      if (!res.ok) {
+        console.log(data.message);
+      } else {
+        dispatch(signoutSuccess());
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   return (
     <Sidebar className="w-full md:w-56">
@@ -32,7 +54,11 @@ const DashboardSidebar = () => {
               Profile
             </Sidebar.Item>
           </Link>
-          <Sidebar.Item icon={FaSignOutAlt} className="cursor-pointer">
+          <Sidebar.Item
+            icon={FaSignOutAlt}
+            className="cursor-pointer"
+            onClick={handleSignOut}
+          >
             Sign Out
           </Sidebar.Item>
         </Sidebar.ItemGroup>

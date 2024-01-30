@@ -15,6 +15,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { MdDashboard } from "react-icons/md";
 import { FaSignOutAlt } from "react-icons/fa";
 import { toggleTheme } from "../redux/theme/themeSlice";
+import { signoutSuccess } from "../redux/user/userSlice";
 
 const Header = () => {
   const path = useLocation().pathname;
@@ -24,6 +25,24 @@ const Header = () => {
   const { theme } = useSelector((state) => state.theme);
 
   const dispatch = useDispatch();
+
+  // sign out
+  const handleSignOut = async () => {
+    try {
+      const res = await fetch(`/api/user/signout`, {
+        method: "POST",
+      });
+      const data = await res.json();
+
+      if (!res.ok) {
+        console.log(data.message);
+      } else {
+        dispatch(signoutSuccess());
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   return (
     <Navbar className="border-b-2">
@@ -77,7 +96,9 @@ const Header = () => {
               <Dropdown.Item icon={MdDashboard}>Profile</Dropdown.Item>
             </Link>
             <Dropdown.Divider />
-            <Dropdown.Item icon={FaSignOutAlt}>Sign Out</Dropdown.Item>
+            <Dropdown.Item icon={FaSignOutAlt} onClick={handleSignOut}>
+              Sign Out
+            </Dropdown.Item>
           </Dropdown>
         ) : (
           <Link to="/sign-in">
