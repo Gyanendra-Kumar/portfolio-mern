@@ -12,4 +12,12 @@
   /* display: none; */
   width: 5px;
   background: linear-gradient(to bottom, #6366f1, #9333ea, #eb5286);
+  border-radius: 5px 0 0 5px;
+}
+
+body {
+  height: 100vh;
+}
+.ql-editor {
+  font-size: 1.05rem;
 }

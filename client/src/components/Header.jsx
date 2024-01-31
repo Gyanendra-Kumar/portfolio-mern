@@ -61,7 +61,7 @@ const Header = () => {
         <AiOutlineSearch />
       </Button>
 
-      <div className="flex gap-2 md:order-2">
+      <div className="flex gap-2 md:order-2 items-center">
         <Button
           className="w-12 h-10 flex"
           color="gray"
