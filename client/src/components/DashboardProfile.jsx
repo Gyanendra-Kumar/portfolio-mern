@@ -17,6 +17,7 @@ import {
 import { useDispatch } from "react-redux";
 import { HiOutlineExclamationCircle } from "react-icons/hi";
 import { toast } from "react-toastify";
+import { Link } from "react-router-dom";
 
 const DashboardProfile = () => {
   const [imageFile, setImageFile] = useState(null);
@@ -32,8 +33,8 @@ const DashboardProfile = () => {
 
   const filePickerRef = useRef();
 
-  const { currentUser, error } = useSelector((state) => state.user);
-  // console.log(currentUser);
+  const { currentUser, error, loading } = useSelector((state) => state.user);
+  console.log(currentUser);
 
   const handleImageChange = (e) => {
     const file = e.target.files[0];
@@ -252,9 +253,22 @@ const DashboardProfile = () => {
             gradientDuoTone="purpleToBlue"
             className="w-full"
             outline
+            disabled={loading || imageFileUploading}
           >
             Update
           </Button>
+
+          {(currentUser.isAdmin || currentUser.isEditor) && (
+            <Link to="/create-post">
+              <Button
+                gradientDuoTone="purpleToPink"
+                type="button"
+                className="w-full"
+              >
+                Create a Post
+              </Button>
+            </Link>
+          )}
         </div>
       </form>
 
