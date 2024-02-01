@@ -147,7 +147,7 @@ const CreatePost = () => {
           <Alert color="failure">{imageUploadingError}</Alert>
         )}
         {formData.image && (
-          <img src={formData.image} className="h-60 object-cover" />
+          <img src={formData.image} className="h-80 md:h-96 object-cover" />
         )}
 
         <div>
