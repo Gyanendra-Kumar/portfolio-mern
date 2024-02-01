@@ -1,7 +1,12 @@
-import React from "react";
-import { FileInput, Button, Select, TextInput } from "flowbite-react";
+import React, { useState } from "react";
+import { FileInput, Button, Select, TextInput, Alert } from "flowbite-react";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
+import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
+import { storage } from "../firebase/firebaseConfig";
+import { toast } from "react-toastify";
+import { CircularProgressbar } from "react-circular-progressbar";
+import "react-circular-progressbar/dist/styles.css";
 
 const categoryOptions = [
   {
@@ -27,6 +32,66 @@ const categoryOptions = [
 ];
 
 const CreatePost = () => {
+  const [imageUploading, setImageUploading] = useState(false);
+  const [imageFile, setImageFile] = useState(null);
+  const [imageUploadingProgress, setImageUploadingProgress] = useState(null);
+  const [imageUploadingError, setImageUploadingError] = useState(null);
+  const [imageFileURL, setImageFileURL] = useState(null);
+  const [formData, setFormData] = useState({});
+
+  const handleImageChange = (e) => {
+    const file = e.target.files[0];
+
+    if (file) {
+      setImageFile(file);
+      setImageFileURL(URL.createObjectURL(file));
+    }
+  };
+
+  const handleImageUpload = async (e) => {
+    setImageUploading(true);
+    setImageUploadingError(null);
+    try {
+      const storageRef = ref(storage, `posts/${Date.now()}${imageFile.name}`);
+      const uploadTask = uploadBytesResumable(storageRef, imageFile);
+
+      uploadTask.on(
+        "state_changed",
+        (snapshot) => {
+          const progress =
+            (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+          setImageUploadingProgress(progress.toFixed(0));
+        },
+        (error) => {
+          setImageUploadingError(
+            "Could not upload the file. Upload only images less than 2MB. "
+          );
+          setImageUploadingProgress(null);
+          setImageFile(null);
+          setImageFileURL(null);
+          setImageUploading(false);
+        },
+        () => {
+          getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
+            setImageFileURL(downloadURL);
+            setFormData({ ...formData, image: downloadURL });
+            toast.success("Image Uploaded Successfully.");
+            setImageUploading(false);
+          });
+        }
+      );
+    } catch (error) {
+      // console.log(error.message);
+      setImageUploadingProgress(null);
+      setImageUploading(null);
+      if (!imageFile) {
+        setImageUploadingError("Please select image file.");
+      } else {
+        setImageUploadingError(error.message);
+      }
+    }
+  };
+
   return (
     <div className="p-3 max-sm:pb-10 max-w-3xl mx-auto min-h-screen">
       <h1 className="text-center text-3xl my-7 font-semibold">Add a project</h1>
@@ -53,16 +118,37 @@ const CreatePost = () => {
         </div>
 
         <div className="flex gap-4 items-center justify-between border-2 border-teal-400 border-dashed p-3 rounded-md">
-          <FileInput type="file" accept="image/*" />
+          <FileInput
+            type="file"
+            accept="image/*"
+            onChange={handleImageChange}
+          />
           <Button
             type="button"
             gradientDuoTone="purpleToBlue"
             size="sm"
             outline
+            onClick={handleImageUpload}
+            disabled={imageUploading}
           >
-            Upload Image
+            {imageUploading ? (
+              <div className="w-16 h-16">
+                <CircularProgressbar
+                  value={imageUploadingProgress}
+                  text={`${imageUploadingProgress || 0}%`}
+                />
+              </div>
+            ) : (
+              "Upload Image"
+            )}
           </Button>
         </div>
+        {imageUploadingError && (
+          <Alert color="failure">{imageUploadingError}</Alert>
+        )}
+        {formData.image && (
+          <img src={formData.image} className="h-60 object-cover" />
+        )}
 
         <div>
           <ReactQuill
