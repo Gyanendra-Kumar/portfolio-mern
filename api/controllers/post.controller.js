@@ -24,7 +24,7 @@ export const create = async (req, res, next) => {
       userId: req.user.id,
     });
     console.log(newPost);
-    res.status(201).json({ success: true, savePost: newPost });
+    res.status(201).json({ success: true, data: newPost });
   } catch (error) {
     next(error);
   }

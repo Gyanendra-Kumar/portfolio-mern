@@ -34,7 +34,7 @@ const DashboardProfile = () => {
   const filePickerRef = useRef();
 
   const { currentUser, error, loading } = useSelector((state) => state.user);
-  console.log(currentUser);
+  // console.log(currentUser);
 
   const handleImageChange = (e) => {
     const file = e.target.files[0];

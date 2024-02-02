@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import { DashboardProfile, DashboardSidebar } from "../components";
+import DashboardPosts from "../components/DashboardPosts";
 
 const Dashboard = () => {
   const location = useLocation();
@@ -9,7 +10,7 @@ const Dashboard = () => {
   useEffect(() => {
     const urlParams = new URLSearchParams(location.search);
     const tabFromUrl = urlParams.get("tab");
-    // console.log(tabFromUrl);
+    console.log(tabFromUrl);
 
     if (tabFromUrl) {
       setTab(tabFromUrl);
@@ -25,6 +26,9 @@ const Dashboard = () => {
 
       {/* profile */}
       {tab === "profile" && <DashboardProfile />}
+
+      {/* posts */}
+      {tab === "posts" && <DashboardPosts />}
     </div>
   );
 };
