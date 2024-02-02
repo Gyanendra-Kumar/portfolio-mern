@@ -5,10 +5,13 @@ const DashboardPosts = () => {
   const [userPosts, setUserPosts] = useState([]);
   const { currentUser } = useSelector((state) => state.user);
 
+  const editorUrl = `/api/post/getPosts?userId=${currentUser._id}`;
+  const adminUrl = `/api/post/getPosts`;
+
   useEffect(() => {
-    const fetchPosts = async () => {
+    const fetchPosts = async (url) => {
       try {
-        const res = await fetch(`/api/post/getPosts?userId=${currentUser._id}`);
+        const res = await fetch(url);
         const data = await res.json();
 
         if (res.ok) {
@@ -19,8 +22,10 @@ const DashboardPosts = () => {
       }
     };
 
-    if (currentUser.isAdmin || currentUser.isEditor) {
-      fetchPosts();
+    if (currentUser.isAdmin) {
+      fetchPosts(adminUrl);
+    } else if (currentUser.isEditor) {
+      fetchPosts(editorUrl);
     }
   }, [currentUser._id]);
 
