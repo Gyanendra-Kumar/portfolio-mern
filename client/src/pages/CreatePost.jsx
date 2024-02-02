@@ -7,6 +7,7 @@ import { storage } from "../firebase/firebaseConfig";
 import { toast } from "react-toastify";
 import { CircularProgressbar } from "react-circular-progressbar";
 import "react-circular-progressbar/dist/styles.css";
+import { useNavigate } from "react-router-dom";
 
 const categoryOptions = [
   {
@@ -38,6 +39,9 @@ const CreatePost = () => {
   const [imageUploadingError, setImageUploadingError] = useState(null);
   const [imageFileURL, setImageFileURL] = useState(null);
   const [formData, setFormData] = useState({});
+  const [publishError, setPublishError] = useState(null);
+
+  const navigate = useNavigate();
 
   const handleImageChange = (e) => {
     const file = e.target.files[0];
@@ -92,11 +96,38 @@ const CreatePost = () => {
     }
   };
 
+  // console.log(formData);
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const res = await fetch(`/api/post/create`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
+      const data = await res.json();
+
+      if (!res.ok) {
+        setPublishError(data.message);
+        return;
+      }
+      console.log(data.data.slug);
+      if (res.ok) {
+        setPublishError(null);
+        navigate(`/post/${data.data.slug}`);
+      }
+    } catch (error) {
+      setPublishError(`Something went wrong: ${error.message}`);
+    }
+  };
+
   return (
     <div className="p-3 max-sm:pb-10 max-w-3xl mx-auto min-h-screen">
       <h1 className="text-center text-3xl my-7 font-semibold">Add a project</h1>
 
-      <form className="flex flex-col gap-4">
+      <form className="flex flex-col gap-4" onSubmit={handleSubmit}>
         <div className="flex flex-col gap-4 sm:flex-row justify-between">
           <TextInput
             type="text"
@@ -104,8 +135,15 @@ const CreatePost = () => {
             required
             id="title"
             className="flex-1"
+            onChange={(e) =>
+              setFormData({ ...formData, title: e.target.value })
+            }
           />
-          <Select>
+          <Select
+            onChange={(e) =>
+              setFormData({ ...formData, category: e.target.value })
+            }
+          >
             <option value="uncategorized">Select a category</option>
             {categoryOptions.map((item) => {
               return (
@@ -155,6 +193,7 @@ const CreatePost = () => {
             theme="snow"
             placeholder="Project details..."
             className="h-72 tracking-wider"
+            onChange={(value) => setFormData({ ...formData, content: value })}
           />
         </div>
 
@@ -165,6 +204,12 @@ const CreatePost = () => {
         >
           Publish
         </Button>
+
+        {publishError && (
+          <Alert color="failure" className="mt-5">
+            {publishError}
+          </Alert>
+        )}
       </form>
     </div>
   );

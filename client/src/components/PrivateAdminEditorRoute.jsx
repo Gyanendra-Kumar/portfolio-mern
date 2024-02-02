@@ -1,7 +1,6 @@
 import React from "react";
 import { useSelector } from "react-redux";
 import { Outlet, Navigate } from "react-router-dom";
-import { toast } from "react-toastify";
 
 const PrivateAdminEditorRoute = () => {
   const { currentUser } = useSelector((state) => state.user);
@@ -10,9 +9,6 @@ const PrivateAdminEditorRoute = () => {
     <Outlet />
   ) : (
     <>
-      {toast.error(
-        "You are not authorized to access this page. Contact your administrator."
-      )}
       <Navigate to="/sign-in" />
     </>
   );
