@@ -1,6 +1,7 @@
 import Post from "../model/post.model.js";
 import { errorHandler } from "../utils/error.js";
 
+// CONTROLLER TO CREATE PROJECTS
 export const create = async (req, res, next) => {
   // console.log(req);
   if (!req.user.isAdmin && !req.user.isEditor) {
@@ -30,6 +31,7 @@ export const create = async (req, res, next) => {
   }
 };
 
+// CONTROLLERS TO GET ALL
 export const getPosts = async (req, res, next) => {
   try {
     const startIndex = parseInt(req.query.startIndex) || 0;
