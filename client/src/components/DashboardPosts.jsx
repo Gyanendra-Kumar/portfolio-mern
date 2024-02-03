@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import { Table } from "flowbite-react";
+import { Button, Table } from "flowbite-react";
 import { Link } from "react-router-dom";
 import { FaRegEdit } from "react-icons/fa";
 import { RiDeleteBin4Line } from "react-icons/ri";
@@ -17,7 +17,7 @@ const tableHead = [
 
 const DashboardPosts = () => {
   const [userPosts, setUserPosts] = useState([]);
-  // const [filteredProducts, setFilteredProducts] = useState(userPosts);
+  const [showMore, setShowMore] = useState(true);
   const { currentUser } = useSelector((state) => state.user);
 
   const editorUrl = `/api/post/getPosts?userId=${currentUser._id}`;
@@ -31,6 +31,9 @@ const DashboardPosts = () => {
 
         if (res.ok) {
           setUserPosts(data.posts);
+          if (data.posts.length < 9) {
+            setShowMore(false);
+          }
         }
       } catch (error) {
         console.log(error);
@@ -46,8 +49,16 @@ const DashboardPosts = () => {
 
   // console.log(userPosts);
 
+  const handleShowMore = async () => {
+    const startIndex = userPosts.length;
+
+    try {
+      const res = await fetch(``);
+    } catch (error) {}
+  };
+
   return (
-    <div className="table-auto overflow-x-scroll md:mx-auto p-3 scrollbar scrollbar-track-slate-100 scrollbar-thumb-slate-300 dark:scrollbar-track-slate-700 dark:scrollbar-thumb-slate-500 ">
+    <div className="table-auto max-w-6xl 2xl:w-[1280px] overflow-x-scroll md:mx-auto p-3 scrollbar scrollbar-track-slate-100 scrollbar-thumb-slate-300 dark:scrollbar-track-slate-700 dark:scrollbar-thumb-slate-500 ">
       {(currentUser?.isAdmin || currentUser?.isEditor) &&
       userPosts.length > 0 ? (
         <>
@@ -100,6 +111,15 @@ const DashboardPosts = () => {
               </Table.Body>
             ))}
           </Table>
+
+          {showMore && (
+            <button
+              onClick={handleShowMore}
+              className="text-teal-500 w-full text-center text-sm py-7"
+            >
+              Show More
+            </button>
+          )}
         </>
       ) : (
         <p>You have no posts.</p>
