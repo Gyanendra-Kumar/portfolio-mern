@@ -19,6 +19,7 @@ const DashboardPosts = () => {
   const [userPosts, setUserPosts] = useState([]);
   const [showMore, setShowMore] = useState(true);
   const { currentUser } = useSelector((state) => state.user);
+  const [showModal, setShowModal] = useState(false);
 
   const startIndex = userPosts.length;
 
@@ -68,6 +69,8 @@ const DashboardPosts = () => {
     }
   };
 
+  const postDeleteHandler = () => {};
+
   return (
     <div className="table-auto max-w-6xl 2xl:w-[1280px] overflow-x-scroll md:mx-auto px-3 py-6 scrollbar scrollbar-track-slate-100 scrollbar-thumb-slate-300 dark:scrollbar-track-slate-700 dark:scrollbar-thumb-slate-500">
       {(currentUser?.isAdmin || currentUser?.isEditor) &&
@@ -114,7 +117,10 @@ const DashboardPosts = () => {
                     </Link>
                   </Table.Cell>
                   <Table.Cell>
-                    <div className="cursor-pointer  transition-all">
+                    <div
+                      className="cursor-pointer transition-all"
+                      onClick={postDeleteHandler}
+                    >
                       <RiDeleteBin4Line
                         size="20"
                         className="text-red-600 hover:scale-110"
