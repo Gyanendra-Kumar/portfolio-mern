@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { Sidebar } from "flowbite-react";
 import { HiUser } from "react-icons/hi";
 import { FaSignOutAlt } from "react-icons/fa";
@@ -11,6 +11,7 @@ const DashboardSidebar = () => {
   const location = useLocation();
   const [tab, setTab] = useState("");
   const { currentUser, isLoading } = useSelector((state) => state.user);
+  const navigate = useNavigate();
 
   const dispatch = useDispatch();
   // console.log(currentUser);
