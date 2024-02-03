@@ -108,14 +108,17 @@ const DashboardPosts = () => {
                   <Table.Cell>
                     <Link to={`/update-post/${userPost._id}`}>
                       <FaRegEdit
-                        className="text-teal-700 hover:scale-110 transition-all"
+                        className="text-teal-700 dark:text-green-400 hover:scale-110 hover:text-green-500 transition-all"
                         size="20"
                       />
                     </Link>
                   </Table.Cell>
                   <Table.Cell>
-                    <div className="cursor-pointer hover:scale-110 transition-all">
-                      <RiDeleteBin4Line size="20" className="text-red-600" />
+                    <div className="cursor-pointer  transition-all">
+                      <RiDeleteBin4Line
+                        size="20"
+                        className="text-red-600 hover:scale-110"
+                      />
                     </div>
                   </Table.Cell>
                 </Table.Row>
