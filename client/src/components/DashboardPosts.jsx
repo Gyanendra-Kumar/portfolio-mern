@@ -20,26 +20,31 @@ const DashboardPosts = () => {
   const [showMore, setShowMore] = useState(true);
   const { currentUser } = useSelector((state) => state.user);
 
-  const editorUrl = `/api/post/getPosts?userId=${currentUser._id}`;
-  const adminUrl = `/api/post/getPosts`;
+  const startIndex = userPosts.length;
+
+  const editorUrl = `/api/post/getPosts?userId=${currentUser._id}&startIndex=${startIndex}`;
+  const adminUrl = `/api/post/getPosts?startIndex=${startIndex}`;
+
+  const fetchPosts = async (url) => {
+    try {
+      const res = await fetch(url);
+      const data = await res.json();
+
+      if (res.ok) {
+        // setUserPosts(data.posts);
+        setUserPosts((prev) => [...prev, ...data.posts]);
+        if (data.posts.length < 9) {
+          setShowMore(false);
+        }
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  console.log(userPosts);
 
   useEffect(() => {
-    const fetchPosts = async (url) => {
-      try {
-        const res = await fetch(url);
-        const data = await res.json();
-
-        if (res.ok) {
-          setUserPosts(data.posts);
-          if (data.posts.length < 9) {
-            setShowMore(false);
-          }
-        }
-      } catch (error) {
-        console.log(error);
-      }
-    };
-
     if (currentUser.isAdmin) {
       fetchPosts(adminUrl);
     } else if (currentUser.isEditor) {
@@ -49,16 +54,22 @@ const DashboardPosts = () => {
 
   // console.log(userPosts);
 
-  const handleShowMore = async () => {
-    const startIndex = userPosts.length;
+  const handleShowMore = () => {
+    // const startIndex = userPosts.length;
 
     try {
-      const res = await fetch(``);
-    } catch (error) {}
+      if (currentUser.isAdmin) {
+        fetchPosts(adminUrl);
+      } else if (currentUser.isEditor) {
+        fetchPosts(editorUrl);
+      }
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
-    <div className="table-auto max-w-6xl 2xl:w-[1280px] overflow-x-scroll md:mx-auto p-3 scrollbar scrollbar-track-slate-100 scrollbar-thumb-slate-300 dark:scrollbar-track-slate-700 dark:scrollbar-thumb-slate-500 ">
+    <div className="table-auto max-w-6xl 2xl:w-[1280px] overflow-x-scroll md:mx-auto px-3 py-6 scrollbar scrollbar-track-slate-100 scrollbar-thumb-slate-300 dark:scrollbar-track-slate-700 dark:scrollbar-thumb-slate-500">
       {(currentUser?.isAdmin || currentUser?.isEditor) &&
       userPosts.length > 0 ? (
         <>

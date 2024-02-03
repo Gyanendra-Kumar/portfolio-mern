@@ -14,7 +14,7 @@ export const create = async (req, res, next) => {
 
   const slug = req.body.title
     .split(" ")
-    .join("%")
+    .join("-")
     .toLowerCase()
     .replace(/[^a-zA-Z0-9-]/g, "");
 
