@@ -57,7 +57,7 @@ const DashboardUsers = () => {
     }
   }, [currentUser._id]);
 
-  // console.log(userPosts);
+  console.log(currentUser);
 
   const handleShowMore = () => {
     // const startIndex = userPosts.length;
@@ -74,22 +74,24 @@ const DashboardUsers = () => {
   // delete post handler
   const handleDeleteUser = async () => {
     setShowModal(false);
-    // try {
-    //   const res = await fetch(`/api/user/deletePost/${postIdToDelete}`, {
-    //     method: "DELETE",
-    //   });
-    //   const data = await res.json();
-    //   if (!res.ok) {
-    //     console.log(data.message);
-    //     toast.error(data.message);
-    //   } else {
-    //     setUsers((prev) => prev.filter((post) => post._id !== postIdToDelete));
-    //   }
-    // } catch (error) {
-    //   console.log(error.message);
-    //   toast.error(error.message);
-    // }
-    console.log("User deleted");
+
+    try {
+      const res = await fetch(`/api/user/delete/${userIdToDelete}`, {
+        method: "DELETE",
+      });
+      const data = await res.json();
+      console.log(data);
+
+      if (res.ok) {
+        setUsers((prev) => prev.filter((user) => user._id !== userIdToDelete));
+        setShowModal(false);
+        // window.location.reload(true);
+      } else {
+        toast.error(data.message);
+      }
+    } catch (error) {
+      toast.error(error);
+    }
   };
 
   return (

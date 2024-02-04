@@ -90,6 +90,7 @@ const DashboardPosts = () => {
         setUserPosts((prev) =>
           prev.filter((post) => post._id !== postIdToDelete)
         );
+        window.location.reload(true);
       }
     } catch (error) {
       console.log(error.message);
