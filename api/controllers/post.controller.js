@@ -98,12 +98,6 @@ export const updatePost = async (req, res, next) => {
   }
 
   try {
-    // const slug = req.body.title
-    //   .split(" ")
-    //   .join("-")
-    //   .toLowerCase()
-    //   .replace(/[^a-zA-Z0-9-]/g, "");
-
     const updatePost = await Post.findByIdAndUpdate(
       req.params.postId,
       {
