@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import { Button, Table } from "flowbite-react";
+import { Button, Modal, Table } from "flowbite-react";
 import { Link } from "react-router-dom";
 import { FaRegEdit } from "react-icons/fa";
 import { RiDeleteBin4Line } from "react-icons/ri";
+import { HiOutlineExclamationCircle } from "react-icons/hi";
+import { toast } from "react-toastify";
 
 const tableHead = [
   { name: "Date updated" },
@@ -18,6 +20,9 @@ const tableHead = [
 const DashboardPosts = () => {
   const [userPosts, setUserPosts] = useState([]);
   const [showMore, setShowMore] = useState(true);
+  const [showModal, setShowModal] = useState(false);
+  const [postIdToDelete, setPostIdToDelete] = useState("");
+
   const { currentUser } = useSelector((state) => state.user);
 
   const startIndex = userPosts.length;
@@ -68,6 +73,29 @@ const DashboardPosts = () => {
     }
   };
 
+  // delete post handler
+  const handleDeletePost = async () => {
+    setShowModal(false);
+    try {
+      const res = await fetch(`/api/post/deletePost/${postIdToDelete}`, {
+        method: "DELETE",
+      });
+
+      const data = await res.json();
+      if (!res.ok) {
+        console.log(data.message);
+        toast.error(data.message);
+      } else {
+        setUserPosts((prev) =>
+          prev.filter((post) => post._id !== postIdToDelete)
+        );
+      }
+    } catch (error) {
+      console.log(error.message);
+      toast.error(error.message);
+    }
+  };
+
   return (
     <div className="table-auto max-w-6xl 2xl:w-[1280px] overflow-x-scroll md:mx-auto px-3 py-6 scrollbar scrollbar-track-slate-100 scrollbar-thumb-slate-300 dark:scrollbar-track-slate-700 dark:scrollbar-thumb-slate-500">
       {(currentUser?.isAdmin || currentUser?.isEditor) &&
@@ -108,14 +136,21 @@ const DashboardPosts = () => {
                   <Table.Cell>
                     <Link to={`/update-post/${userPost._id}`}>
                       <FaRegEdit
-                        className="text-teal-700 hover:scale-110 transition-all"
+                        className="text-teal-700 dark:text-green-400 hover:scale-110 hover:text-green-500 transition-all"
                         size="20"
                       />
                     </Link>
                   </Table.Cell>
                   <Table.Cell>
-                    <div className="cursor-pointer hover:scale-110 transition-all">
-                      <RiDeleteBin4Line size="20" className="text-red-600" />
+                    <div className="cursor-pointer transition-all">
+                      <RiDeleteBin4Line
+                        size="20"
+                        className="text-red-600 hover:scale-110"
+                        onClick={() => {
+                          setShowModal(true);
+                          setPostIdToDelete(userPost._id);
+                        }}
+                      />
                     </div>
                   </Table.Cell>
                 </Table.Row>
@@ -134,6 +169,34 @@ const DashboardPosts = () => {
         </>
       ) : (
         <p>You have no posts.</p>
+      )}
+
+      {showModal && (
+        <Modal
+          show={showModal}
+          size="md"
+          onClose={() => setShowModal(false)}
+          popup
+        >
+          <Modal.Header />
+          <Modal.Body>
+            <div className="text-center">
+              <HiOutlineExclamationCircle className="mx-auto mb-4 h-14 w-14 text-gray-400 dark:text-gray-200" />
+              <h3 className="mb-5 text-lg font-normal text-gray-500 dark:text-gray-400">
+                Are you sure you want to delete this post?
+              </h3>
+
+              <div className="flex justify-center gap-4">
+                <Button color="failure" onClick={handleDeletePost}>
+                  Delete
+                </Button>
+                <Button color="gray" onClick={() => setShowModal(false)}>
+                  Cancel
+                </Button>
+              </div>
+            </div>
+          </Modal.Body>
+        </Modal>
       )}
     </div>
   );

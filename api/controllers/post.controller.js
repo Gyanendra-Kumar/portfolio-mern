@@ -72,3 +72,21 @@ export const getPosts = async (req, res, next) => {
     next(error);
   }
 };
+
+// DELETE POST
+export const deletePost = async (req, res, next) => {
+  if (!req.user.isAdmin) {
+    return next(
+      errorHandler(
+        403,
+        "Not authorized!, Contact your administrator to delete the project."
+      )
+    );
+  }
+  try {
+    await Post.findByIdAndDelete(req.params.postId);
+    res.status(200).json({ message: "Project have been deleted." });
+  } catch (error) {
+    next(error);
+  }
+};
