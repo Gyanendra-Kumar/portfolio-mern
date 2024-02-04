@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import { FaRegEdit } from "react-icons/fa";
 import { RiDeleteBin4Line } from "react-icons/ri";
 import { HiOutlineExclamationCircle } from "react-icons/hi";
+import { toast } from "react-toastify";
 
 const tableHead = [
   { name: "Date updated" },
@@ -72,6 +73,7 @@ const DashboardPosts = () => {
     }
   };
 
+  // delete post handler
   const handleDeletePost = async () => {
     setShowModal(false);
     try {
@@ -82,13 +84,15 @@ const DashboardPosts = () => {
       const data = await res.json();
       if (!res.ok) {
         console.log(data.message);
+        toast.error(data.message);
       } else {
         setUserPosts((prev) =>
-          prev.filter((post) => post.id !== postIdToDelete)
+          prev.filter((post) => post._id !== postIdToDelete)
         );
       }
     } catch (error) {
       console.log(error.message);
+      toast.error(error.message);
     }
   };
 
@@ -138,7 +142,7 @@ const DashboardPosts = () => {
                     </Link>
                   </Table.Cell>
                   <Table.Cell>
-                    <div className="cursor-pointer  transition-all">
+                    <div className="cursor-pointer transition-all">
                       <RiDeleteBin4Line
                         size="20"
                         className="text-red-600 hover:scale-110"
