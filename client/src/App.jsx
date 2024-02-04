@@ -13,6 +13,7 @@ import FooterComponent from "./components/Footer";
 import PrivateRoute from "./components/PrivateRoute";
 import PrivateAdminEditorRoute from "./components/PrivateAdminEditorRoute";
 import CreatePost from "./pages/CreatePost";
+import UpdatePost from "./pages/UpdatePost";
 
 const App = () => {
   return (
@@ -32,6 +33,7 @@ const App = () => {
 
         <Route element={<PrivateAdminEditorRoute />}>
           <Route path="/create-post" element={<CreatePost />} />
+          <Route path="/update-post/:postId" element={<UpdatePost />} />
         </Route>
       </Routes>
       <FooterComponent />
