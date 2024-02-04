@@ -1,11 +1,12 @@
 import { useEffect, useState } from "react";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate, Navigate } from "react-router-dom";
 import { Sidebar } from "flowbite-react";
 import { HiUser } from "react-icons/hi";
-import { FaSignOutAlt } from "react-icons/fa";
+import { FaSignOutAlt, FaUsers } from "react-icons/fa";
 import { signoutSuccess } from "../redux/user/userSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { HiDocumentText } from "react-icons/hi2";
+// import { FaUsers } from "react-icons/fa";
 
 const DashboardSidebar = () => {
   const location = useLocation();
@@ -64,7 +65,7 @@ const DashboardSidebar = () => {
               Profile
             </Sidebar.Item>
           </Link>
-          {(currentUser.isAdmin || currentUser.isEditor) && (
+          {currentUser.isAdmin || currentUser.isEditor ? (
             <Link to="/dashboard?tab=posts">
               <Sidebar.Item
                 active={tab === "posts"}
@@ -74,6 +75,18 @@ const DashboardSidebar = () => {
                 Posts
               </Sidebar.Item>
             </Link>
+          ) : (
+            <Navigate to="/dashboard?tab=profile" />
+          )}
+
+          {currentUser.isAdmin ? (
+            <Link to="/dashboard?tab=users">
+              <Sidebar.Item active={tab === "users"} icon={FaUsers} as="div">
+                Users
+              </Sidebar.Item>
+            </Link>
+          ) : (
+            <Navigate to="/dashboard?tab=profile" />
           )}
           <Sidebar.Item
             icon={FaSignOutAlt}

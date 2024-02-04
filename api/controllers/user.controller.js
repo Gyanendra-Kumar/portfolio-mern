@@ -121,3 +121,6 @@ export const getAllUsers = async (req, res, next) => {
     next(error);
   }
 };
+
+// delete users from DB
+// export const deleteUser = async (req, res, next) => {};
