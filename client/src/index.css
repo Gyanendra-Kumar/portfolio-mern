@@ -9,7 +9,7 @@
 }
 
 ::-webkit-scrollbar {
-  display: none;
+  /* display: none; */
   /* width: 10px; */
   /* background: linear-gradient(to bottom, #6366f1, #9333ea, #eb5286); */
   /* border-radius: 5px 0 0 5px; */
