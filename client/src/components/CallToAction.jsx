@@ -13,15 +13,16 @@ const CallToAction = () => {
         <p className="text-xl tracking-wider text-gray-500">
           Check out my contact details
         </p>
-        <div>
-          <Button
-            gradientMonochrome="failure"
-            size="lg"
-            className="focus:ring-0 rounded-tl-xl rounded-bl-none rounded-tr-none rounded-br-xl px-10"
-          >
-            <Link to="/contact">Get Contact Details</Link>
-          </Button>
-        </div>
+
+        <Button
+          gradientMonochrome="failure"
+          size="lg"
+          className="focus:ring-0 rounded-tl-xl rounded-bl-none rounded-tr-none rounded-br-xl font-bold w-full"
+        >
+          <Link to="/contact" className="text-lg">
+            Get Contact Details
+          </Link>
+        </Button>
       </div>
       <div className="flex-1">
         <img src={ctaImage} alt="project image" />
