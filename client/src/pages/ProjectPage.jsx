@@ -3,6 +3,7 @@ import { Link, useParams } from "react-router-dom";
 import Loader from "../components/Loader";
 import { Button } from "flowbite-react";
 import CallToAction from "../components/CallToAction";
+import CommentSection from "../components/CommentSection";
 
 const ProjectPage = () => {
   const { slug } = useParams();
@@ -79,6 +80,7 @@ const ProjectPage = () => {
       <div className="max-w-5xl mx-auto w-full">
         <CallToAction />
       </div>
+      <CommentSection postId={post?._id} />
     </main>
   );
 };

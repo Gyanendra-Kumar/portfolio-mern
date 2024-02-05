@@ -9,6 +9,7 @@ import connectDB from "./config/db.js";
 import userRoutes from "./routes/user.route.js";
 import authRoutes from "./routes/auth.route.js";
 import postRouter from "./routes/post.route.js";
+import commentRouter from "./routes/comment.route.js";
 
 // connect to DB
 connectDB();
@@ -28,6 +29,7 @@ app.listen(3000, () => {
 app.use("/api/user", userRoutes);
 app.use("/api/auth", authRoutes);
 app.use("/api/post", postRouter);
+app.use("/api/comment", commentRouter);
 
 // middlewares
 app.use((err, req, res, next) => {
