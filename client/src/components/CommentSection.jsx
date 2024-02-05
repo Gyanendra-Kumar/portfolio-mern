@@ -1,12 +1,14 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { Alert, Button, Textarea } from "flowbite-react";
+import Comment from "./Comment";
 
 const CommentSection = ({ postId }) => {
   const { currentUser } = useSelector((state) => state.user);
   const [comment, setComment] = useState("");
   const [commentError, setCommentError] = useState(null);
+  const [userComments, setUserComments] = useState([]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -30,12 +32,31 @@ const CommentSection = ({ postId }) => {
       if (res.ok) {
         setComment("");
         setCommentError(null);
+        setUserComments([data, ...userComments]);
       }
     } catch (error) {
       console.log(error.message);
       setCommentError(error.message);
     }
   };
+
+  useEffect(() => {
+    const getComments = async () => {
+      try {
+        const res = await fetch(`/api/comment/getPostComment/${postId}`);
+        if (res.ok) {
+          const data = await res.json();
+          setUserComments(data);
+        }
+      } catch (error) {
+        console.log(error.message);
+      }
+    };
+
+    getComments();
+  }, [postId]);
+
+  console.log(userComments);
 
   return (
     <div className="max-w-2xl mx-auto p-3 w-full">
@@ -95,6 +116,32 @@ const CommentSection = ({ postId }) => {
           )}
         </form>
       )}
+
+      <>
+        {userComments.length === 0 ? (
+          <p className="text-sm text-gray-500 my-5">No Comments yet!</p>
+        ) : (
+          <div className="border border-gray-500 mt-6 rounded-md">
+            <div className="text-sm mb-2 flex items-center gap-2 border-b-2">
+              <p className="text-gray-600 font-semibold text-md p-4">
+                Comments:
+              </p>
+              <div className="border px-2 py-1 border-gray-500 rounded-md">
+                <p>{userComments?.length}</p>
+              </div>
+            </div>
+
+            {/* showing comments */}
+            <div className="w-full h-56 overflow-auto">
+              {userComments?.map((userComment, index) => (
+                <div key={index}>
+                  <Comment comment={userComment} />
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+      </>
     </div>
   );
 };
