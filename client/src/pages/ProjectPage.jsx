@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import Loader from "../components/Loader";
 import { Button } from "flowbite-react";
+import CallToAction from "../components/CallToAction";
 
 const ProjectPage = () => {
   const { slug } = useParams();
@@ -38,11 +39,11 @@ const ProjectPage = () => {
   }, []);
   console.log(post);
   return (
-    <>
+    <main>
       {isLoading ? (
         <Loader />
       ) : (
-        <div className="p-3 flex flex-col max-w-6xl mx-auto min-h-screen">
+        <div className="p-3 flex flex-col max-w-6xl mx-auto 2xl:min-h-screen">
           <h1 className="text-3xl mt-10 p-3 text-center font-serif max-w-2xl mx-auto lg:max-w-4xl">
             {post?.title}
           </h1>
@@ -70,12 +71,15 @@ const ProjectPage = () => {
           </div>
 
           <div
-            className="p-3 max-w-3xl mx-auto w-full post-content"
+            className="p-3 max-w-2xl mx-auto w-full post-content"
             dangerouslySetInnerHTML={{ __html: post?.content }}
           ></div>
         </div>
       )}
-    </>
+      <div className="max-w-5xl mx-auto w-full">
+        <CallToAction />
+      </div>
+    </main>
   );
 };
 
