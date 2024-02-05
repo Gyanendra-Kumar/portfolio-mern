@@ -14,6 +14,7 @@ import PrivateRoute from "./components/PrivateRoute";
 import PrivateAdminEditorRoute from "./components/PrivateAdminEditorRoute";
 import CreatePost from "./pages/CreatePost";
 import UpdatePost from "./pages/UpdatePost";
+import ProjectPage from "./pages/ProjectPage";
 
 const App = () => {
   return (
@@ -26,6 +27,7 @@ const App = () => {
         <Route path="/sign-in" element={<SignIn />} />
         <Route path="/sign-up" element={<SignUp />} />
         <Route path="/projects" element={<Projects />} />
+        <Route path="/post/:slug" element={<ProjectPage />} />
 
         <Route element={<PrivateRoute />}>
           <Route path="/dashboard" element={<Dashboard />} />

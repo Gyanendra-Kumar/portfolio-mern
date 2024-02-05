@@ -115,7 +115,7 @@ const DashboardUsers = () => {
                     <img
                       src={user?.profilePhoto}
                       alt={user?.username}
-                      className="w-20 h-20 object-cover rounded-[100%] bg-gray-500"
+                      className="w-14 h-14 object-cover rounded-full bg-gray-500"
                     />
                   </Table.Cell>
                   <Table.Cell>{user.username}</Table.Cell>
