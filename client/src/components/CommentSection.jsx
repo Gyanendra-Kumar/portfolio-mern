@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Alert, Button, Textarea } from "flowbite-react";
 import Comment from "./Comment";
 
@@ -9,6 +9,8 @@ const CommentSection = ({ postId }) => {
   const [comment, setComment] = useState("");
   const [commentError, setCommentError] = useState(null);
   const [userComments, setUserComments] = useState([]);
+
+  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -56,7 +58,7 @@ const CommentSection = ({ postId }) => {
     getComments();
   }, [postId]);
 
-  console.log(userComments);
+  // console.log(userComments);
 
   return (
     <div className="max-w-2xl mx-auto p-3 w-full">

@@ -1,8 +1,11 @@
 import React, { useEffect, useState } from "react";
 import moment from "moment";
+import { FaThumbsUp } from "react-icons/fa";
+import { useSelector } from "react-redux";
 
 const Comment = ({ comment }) => {
   const [user, setUser] = useState({});
+  const { currentUser } = useSelector((state) => state.user);
 
   // console.log(content);
   useEffect(() => {
