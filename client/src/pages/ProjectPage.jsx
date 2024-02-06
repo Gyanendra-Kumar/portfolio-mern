@@ -5,7 +5,7 @@ import { Alert, Button } from "flowbite-react";
 import CallToAction from "../components/CallToAction";
 import CommentSection from "../components/CommentSection";
 import { HiInformationCircle } from "react-icons/hi";
-import ProjectCarousel from "../components/Carousel";
+import PostCard from "../components/PostCard";
 
 const ProjectPage = () => {
   const { slug } = useParams();
@@ -15,7 +15,7 @@ const ProjectPage = () => {
   const [post, setPost] = useState(null);
   const [recentPosts, setRecentPosts] = useState(null);
 
-  const recentPostUrl = `/api/post/getPosts?limit=6`;
+  const recentPostUrl = `/api/post/getPosts?limit=3`;
 
   // console.log(slug);
 
@@ -42,9 +42,7 @@ const ProjectPage = () => {
     };
 
     fetchPost();
-  }, []);
-  console.log(post);
-  console.log(recentPosts);
+  }, [slug]);
 
   const fetchRelatedPosts = async (url) => {
     try {
@@ -53,9 +51,9 @@ const ProjectPage = () => {
       const data = await res.json();
 
       if (res.ok) {
-        setRecentPosts(data.posts);
+        setRecentPosts(data?.posts);
       } else {
-        console.log(data.message);
+        console.log(data?.message);
       }
     } catch (error) {
       console.log(error.message);
@@ -83,10 +81,11 @@ const ProjectPage = () => {
               {post?.category}
             </Button>
           </Link>
+          <div></div>
           <img
             src={post?.image}
             alt={post?.title}
-            className="mt-10 p-3 max-h-[600px] w-full object-contain"
+            className="mt-10 p-3 max-h-[600px] w-full object-cover"
           />
 
           <div className="flex justify-between p-3 px-6 border-b border-b-slate-300 text-sm">
@@ -116,9 +115,14 @@ const ProjectPage = () => {
       <CommentSection postId={post?._id} />
 
       <div className="flex flex-col justify-center items-center mb-5">
-        <h1 className="text-xl mt-5 border-b-2 border-gray-500">
+        <h1 className="text-xl my-5 border-b-2 border-gray-500 ">
           Recent Projects
         </h1>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 p-4">
+          {recentPosts?.map((recentPost) => (
+            <PostCard key={recentPost?._id} data={recentPost} />
+          ))}
+        </div>
       </div>
     </main>
   );
