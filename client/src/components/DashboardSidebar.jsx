@@ -6,7 +6,6 @@ import { FaSignOutAlt, FaUsers } from "react-icons/fa";
 import { signoutSuccess } from "../redux/user/userSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { HiDocumentText } from "react-icons/hi2";
-// import { FaUsers } from "react-icons/fa";
 
 const DashboardSidebar = () => {
   const location = useLocation();
@@ -80,11 +79,13 @@ const DashboardSidebar = () => {
           )}
 
           {currentUser.isAdmin ? (
-            <Link to="/dashboard?tab=users">
-              <Sidebar.Item active={tab === "users"} icon={FaUsers} as="div">
-                Users
-              </Sidebar.Item>
-            </Link>
+            <>
+              <Link to="/dashboard?tab=users">
+                <Sidebar.Item active={tab === "users"} icon={FaUsers} as="div">
+                  Users
+                </Sidebar.Item>
+              </Link>
+            </>
           ) : (
             <Navigate to="/dashboard?tab=profile" />
           )}
