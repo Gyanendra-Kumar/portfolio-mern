@@ -56,7 +56,7 @@ const CommentSection = ({ postId }) => {
     getComments();
   }, [postId]);
 
-  console.log(userComments);
+  // console.log(userComments);
 
   return (
     <div className="max-w-2xl mx-auto p-3 w-full">

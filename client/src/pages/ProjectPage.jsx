@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import Loader from "../components/Loader";
-import { Button } from "flowbite-react";
+import { Alert, Button } from "flowbite-react";
 import CallToAction from "../components/CallToAction";
 import CommentSection from "../components/CommentSection";
+import { HiInformationCircle } from "react-icons/hi";
+import ProjectCarousel from "../components/Carousel";
 
 const ProjectPage = () => {
   const { slug } = useParams();
@@ -11,8 +13,11 @@ const ProjectPage = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(false);
   const [post, setPost] = useState(null);
+  const [recentPosts, setRecentPosts] = useState(null);
 
-  //   console.log(slug);
+  const recentPostUrl = `/api/post/getPosts?limit=6`;
+
+  // console.log(slug);
 
   useEffect(() => {
     const fetchPost = async () => {
@@ -39,6 +44,28 @@ const ProjectPage = () => {
     fetchPost();
   }, []);
   console.log(post);
+  console.log(recentPosts);
+
+  const fetchRelatedPosts = async (url) => {
+    try {
+      setIsLoading(true);
+      const res = await fetch(url);
+      const data = await res.json();
+
+      if (res.ok) {
+        setRecentPosts(data.posts);
+      } else {
+        console.log(data.message);
+      }
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
+
+  useEffect(() => {
+    fetchRelatedPosts(recentPostUrl);
+  }, []);
+
   return (
     <main>
       {isLoading ? (
@@ -75,12 +102,24 @@ const ProjectPage = () => {
             className="p-3 max-w-2xl mx-auto w-full post-content"
             dangerouslySetInnerHTML={{ __html: post?.content }}
           ></div>
+
+          {error && (
+            <Alert color="failure" icon={HiInformationCircle} className="">
+              {error}
+            </Alert>
+          )}
         </div>
       )}
       <div className="max-w-5xl mx-auto w-full">
         <CallToAction />
       </div>
       <CommentSection postId={post?._id} />
+
+      <div className="flex flex-col justify-center items-center mb-5">
+        <h1 className="text-xl mt-5 border-b-2 border-gray-500">
+          Recent Projects
+        </h1>
+      </div>
     </main>
   );
 };

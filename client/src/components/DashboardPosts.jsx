@@ -32,6 +32,7 @@ const DashboardPosts = () => {
 
   const editorUrl = `/api/post/getPosts?userId=${currentUser._id}&startIndex=${startIndex}`;
   const adminUrl = `/api/post/getPosts?startIndex=${startIndex}`;
+  
 
   const fetchPosts = async (url) => {
     try {
@@ -53,8 +54,6 @@ const DashboardPosts = () => {
     }
   };
 
-  console.log(userPosts);
-
   useEffect(() => {
     if (currentUser.isAdmin) {
       fetchPosts(adminUrl);
@@ -63,11 +62,7 @@ const DashboardPosts = () => {
     }
   }, [currentUser._id]);
 
-  // console.log(userPosts);
-
   const handleShowMore = () => {
-    // const startIndex = userPosts.length;
-
     try {
       if (currentUser.isAdmin) {
         fetchPosts(adminUrl);
