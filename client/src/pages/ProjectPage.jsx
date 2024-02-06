@@ -3,7 +3,7 @@ import { Link, useParams } from "react-router-dom";
 import Loader from "../components/Loader";
 import { Alert, Button } from "flowbite-react";
 import CallToAction from "../components/CallToAction";
-import CommentSection from "../components/CommentSection";
+
 import { HiInformationCircle } from "react-icons/hi";
 import PostCard from "../components/PostCard";
 
@@ -112,7 +112,6 @@ const ProjectPage = () => {
       <div className="max-w-5xl mx-auto w-full">
         <CallToAction />
       </div>
-      <CommentSection postId={post?._id} />
 
       <div className="flex flex-col justify-center items-center mb-5">
         <h1 className="text-xl my-5 border-b-2 border-gray-500 ">
