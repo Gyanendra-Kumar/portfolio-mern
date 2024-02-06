@@ -24,6 +24,7 @@
     "react-router-dom": "^6.21.3",
     "react-toastify": "^10.0.4",
     "redux-persist": "^6.0.0",
+    "swiper": "^11.0.6",
     "tailwind-scrollbar": "^3.0.5"
   },
   "devDependencies": {

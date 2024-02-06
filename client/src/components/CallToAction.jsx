@@ -24,8 +24,12 @@ const CallToAction = () => {
           </Link>
         </Button>
       </div>
-      <div className="flex-1">
-        <img src={ctaImage} alt="project image" />
+      <div className="flex-1 overflow-hidden hover:rounded-md transition-all duration-500">
+        <img
+          src={ctaImage}
+          alt="project image"
+          className="hover:scale-105 transition-all duration-500"
+        />
       </div>
     </div>
   );

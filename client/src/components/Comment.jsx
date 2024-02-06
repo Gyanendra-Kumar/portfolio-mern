@@ -24,7 +24,7 @@ const Comment = ({ comment }) => {
     getUser();
   }, [comment]);
 
-  console.log(user);
+  // console.log(user);
   return (
     <div className="flex items-center p-4 border-b dark:border-b-600 text-sm">
       <div className="flex-shrink-0 mr-3">
