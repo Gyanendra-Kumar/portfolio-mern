@@ -65,13 +65,13 @@ const HeroSection = () => {
           </div>
         </div>
         {/* right side */}
-        <div className="flex-1 flex justify-center items-center hover:origin-top-left hover:rotate-[10deg] transition-all duration-500">
+        <div className="flex-1 flex justify-center items-center hover:origin-top-left hover:rotate-[5deg] transition-all duration-500">
           <div className="">
             <div className="shadow-lg shadow-slate-500 rounded-md border-gray-600">
               <img
                 src={myImage}
                 alt="gyanendra_kumar"
-                className="w-52 h-52 sm:w-72 sm:h-auto lg:w-96 object-cover rounded-md"
+                className="w-52 h-52 sm:w-72 sm:h-auto lg:w-96 object-cover rounded-md scale-110"
               />
             </div>
           </div>
