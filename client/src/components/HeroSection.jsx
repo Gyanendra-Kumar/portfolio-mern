@@ -10,7 +10,7 @@ import { Button, Tooltip } from "flowbite-react";
 const HeroSection = () => {
   return (
     <>
-      <div className="flex flex-col max-sm:gap-10 gap-6 sm:flex-row py-10 sm:py-10 md:py-20 lg:py-32">
+      <div className="flex flex-col max-sm:gap-10 gap-6 pl-6 sm:flex-row py-10 sm:py-10 md:py-20 lg:py-32">
         {/* left side */}
         <div className="flex-1 flex-col gap-4 px-4">
           <div className="mb-6">
@@ -42,7 +42,7 @@ const HeroSection = () => {
                 to="https://www.linkedin.com/in/gyanendra-kumar-22975b18b/"
                 target="_blank"
               >
-                <Button gradientDuoTone="greenToBlue">
+                <Button gradientDuoTone="purpleToPink">
                   <LuLinkedin size="20" />
                 </Button>
               </Link>
@@ -57,7 +57,7 @@ const HeroSection = () => {
                 placement="bottom"
                 className="bg-gray-500 text-white"
               >
-                <Button gradientDuoTone="greenToBlue">
+                <Button gradientDuoTone="pinkToOrange">
                   <FiDownload size="20" />
                 </Button>
               </Tooltip>
@@ -67,11 +67,11 @@ const HeroSection = () => {
         {/* right side */}
         <div className="flex-1 flex justify-center items-center hover:origin-top-left hover:rotate-[5deg] transition-all duration-500">
           <div className="">
-            <div className="shadow-lg shadow-slate-500 rounded-md border-gray-600">
+            <div className="shadow-xl shadow-slate-500 rounded-md border-gray-600">
               <img
                 src={myImage}
                 alt="gyanendra_kumar"
-                className="w-52 h-52 sm:w-72 sm:h-auto lg:w-96 object-cover rounded-md scale-110"
+                className="w-52 h-52 sm:w-72 sm:h-auto lg:w-96 object-cover scale-105"
               />
             </div>
           </div>

@@ -1,0 +1,16 @@
+export { default as css } from "../assets/images/css.png";
+export { default as express } from "../assets/images/express.png";
+export { default as firebase } from "../assets/images/firebase.png";
+export { default as github } from "../assets/images/github.png";
+export { default as html } from "../assets/images/html.png";
+export { default as javascript } from "../assets/images/javascript.png";
+export { default as mongoDB } from "../assets/images/mongoDB.png";
+export { default as mui } from "../assets/images/mui.png";
+export { default as next } from "../assets/images/next.png";
+export { default as node } from "../assets/images/node.png";
+export { default as RFH } from "../assets/images/react-form-hook.png";
+export { default as RH } from "../assets/images/react-hook.png";
+export { default as react } from "../assets/images/react.svg";
+export { default as reduxToolkit } from "../assets/images/redux-toolkit.svg";
+export { default as tailwind } from "../assets/images/tailwind.png";
+export { default as typescript } from "../assets/images/typescript.png";
