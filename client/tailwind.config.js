@@ -6,7 +6,14 @@ export default {
     "node_modules/flowbite-react/lib/esm/**/*.js",
   ],
   theme: {
-    extend: {},
+    extend: {
+      boxShadow: {
+        "3xl": "5px 5px 15px #d1d9e6, -5px -5px 15px #ffffff",
+        inside: "inset 5px 5px 15px #d1d9e6, inset -5px -5px 15px #ffffff",
+
+        "box-gradient": "linear-gradient(145deg, #e2e8ec, #ffffff);",
+      },
+    },
   },
   plugins: [
     require("flowbite/plugin"),
