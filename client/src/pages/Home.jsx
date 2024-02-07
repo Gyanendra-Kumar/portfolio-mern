@@ -5,7 +5,7 @@ import SkillsSection from "../components/SkillsSection";
 
 const Home = () => {
   return (
-    <main className="min-h-screen max-w-6xl mx-auto max-lg:px-6 max-sm:px-3">
+    <main className="min-h-screen max-w-6xl mx-auto max-lg:px-6 max-sm:px-6">
       <HeroSection />
       <hr className="border-gray-400" />
       <SkillsSection />

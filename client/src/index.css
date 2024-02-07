@@ -47,3 +47,18 @@ body {
 .dark .post-content a {
   color: red;
 }
+
+.swiper {
+  width: 200px;
+  height: 200px;
+}
+
+.swiper-slide {
+  background-position: center;
+  background-size: cover;
+}
+
+.swiper-slide img {
+  display: block;
+  width: 100%;
+}
