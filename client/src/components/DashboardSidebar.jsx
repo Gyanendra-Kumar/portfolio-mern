@@ -6,6 +6,7 @@ import { FaSignOutAlt, FaUsers } from "react-icons/fa";
 import { signoutSuccess } from "../redux/user/userSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { HiDocumentText } from "react-icons/hi2";
+import { MdDashboard } from "react-icons/md";
 
 const DashboardSidebar = () => {
   const location = useLocation();
@@ -48,6 +49,14 @@ const DashboardSidebar = () => {
     <Sidebar className="w-full md:w-56">
       <Sidebar.Items>
         <Sidebar.ItemGroup className="flex flex-col gap-2">
+          {currentUser?.isAdmin && (
+            <Link to="/dashboard?tab=dash">
+              <Sidebar.Item active={tab === "dash"} icon={MdDashboard} as="div">
+                Dashboard
+              </Sidebar.Item>
+            </Link>
+          )}
+
           <Link to="/dashboard?tab=profile">
             <Sidebar.Item
               active={tab === "profile"}
