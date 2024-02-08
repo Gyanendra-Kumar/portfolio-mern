@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { Alert, Button } from "flowbite-react";
 import { HiOutlineArrowRight } from "react-icons/hi";
+import PostCard from "../components/PostCard";
 
 const Projects = () => {
   const [project, setProject] = useState([]);
@@ -23,45 +24,15 @@ const Projects = () => {
 
   console.log(project);
   return (
-    <div className="mt-16 sm:mt-24 ">
+    <div className="mt-16 sm:mt-24 max-w-6xl mx-auto">
       <h1 className="text-center text-4xl xl:text-5xl font-semibold mb-10">
         My Work
       </h1>
 
       <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3  justify-center gap-10 my-10">
-        {project?.map((item) => {
-          return (
-            <Link
-              to={`/post/${item?.slug}`}
-              className="shadow-3xl dark:shadow-xl  dark:bg-[rgb(25,36,66)] py-4 px-3 rounded-md  transition-all duration-500 dark:hover:bg-gradient-to-br hover:from-[rgb(25,36,66)] hover:via-[rgb(38,56,104)] hover:-translate-y-2"
-              key={item?._id}
-            >
-              <div className="h-48 overflow-hidden flex justify-center shadow-sm dark:shadow-sky-300 rounded-md ">
-                <img
-                  src={item?.image}
-                  className="w-full h-full object-cover rounded-md hover:scale-105 transition-all duration-500 hover:rounded-md "
-                />
-              </div>
-              <div className="py-2">
-                <h4 className="font-semibold font-serif capitalize tracking-[2px] line-clamp-2 text-xl text-transparent bg-clip-text bg-gradient-to-r from-pink-500 to-purple-600">
-                  {item?.title}
-                </h4>
-                <p className="text-ms italic text-teal-400 ">
-                  {item?.category}
-                </p>
-              </div>
-
-              <Button
-                className="w-full flex items-center gap-2"
-                outline
-                gradientDuoTone="pinkToOrange"
-              >
-                <p>Read More</p>
-                <HiOutlineArrowRight className="w-4 h-4 ml-1 opacity-0 group-hover:opacity-100" />
-              </Button>
-            </Link>
-          );
-        })}
+        {project?.map((item) => (
+          <PostCard key={item?._id} data={item} />
+        ))}
       </div>
     </div>
   );

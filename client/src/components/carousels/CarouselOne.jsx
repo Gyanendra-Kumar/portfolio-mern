@@ -17,7 +17,7 @@ const CarouselOne = ({ skills }) => {
         effect={"cube"}
         grabCursor={true}
         cubeEffect={{
-          shadow: false,
+          shadow: true,
           slideShadows: true,
           shadowOffset: 16,
           shadowScale: 0.94,
