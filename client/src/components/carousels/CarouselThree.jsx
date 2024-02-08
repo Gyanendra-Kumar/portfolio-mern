@@ -30,9 +30,9 @@ const CarouselThree = ({ skills }) => {
         modules={[EffectCube, Autoplay]}
         className="mySwiper"
       >
-        {skills.map((skill) => {
+        {skills.map((skill, index) => {
           return (
-            <SwiperSlide>
+            <SwiperSlide key={index}>
               <div className="bg-gradient-to-br from-[#38aecc] to-[#046f96] h-full rounded-md ">
                 <div
                   className="h-full flex justify-center gap-3 flex-col items-center text-center tracking-[2px] text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-600 p-2 text-lg flex-wrap font-bold "

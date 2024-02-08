@@ -57,7 +57,7 @@ const HeroSection = () => {
                 placement="bottom"
                 className="bg-gray-500 text-white"
               >
-                <Button gradientDuoTone="pinkToOrange">
+                <Button gradientDuoTone="pinkToOrange" className="hidden">
                   <FiDownload size="20" />
                 </Button>
               </Tooltip>
