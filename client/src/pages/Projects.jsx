@@ -33,7 +33,7 @@ const Projects = () => {
           return (
             <Link
               to={`/post/${item?.slug}`}
-              className="shadow-3xl dark:shadow-xl dark:bg-[rgb(25,36,66)] py-4 px-3 rounded-md  transition-all duration-500"
+              className="shadow-3xl dark:shadow-xl  dark:bg-[rgb(25,36,66)] py-4 px-3 rounded-md  transition-all duration-500 dark:hover:bg-gradient-to-br hover:from-[rgb(25,36,66)] hover:via-[rgb(38,56,104)] hover:-translate-y-2"
               key={item?._id}
             >
               <div className="h-48 overflow-hidden flex justify-center shadow-sm dark:shadow-sky-300 rounded-md ">
