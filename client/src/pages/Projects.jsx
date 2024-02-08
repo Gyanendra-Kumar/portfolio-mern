@@ -43,7 +43,7 @@ const Projects = () => {
                 />
               </div>
               <div className="py-2">
-                <h4 className="font-semibold font-serif capitalize tracking-[2px] line-clamp-2 text-xl">
+                <h4 className="font-semibold font-serif capitalize tracking-[2px] line-clamp-2 text-xl text-transparent bg-clip-text bg-gradient-to-r from-pink-500 to-purple-600">
                   {item?.title}
                 </h4>
                 <p className="text-ms italic text-teal-400 ">
