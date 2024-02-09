@@ -21,7 +21,7 @@ const HeroSection = () => {
           variants={fadeIn("right", 0.4)}
           initial="hidden"
           whileInView={"show"}
-          viewport={{ once: false, amount: 0.7 }}
+          viewport={{ once: true, amount: 0.7 }}
           exit="exit"
         >
           <div className="mb-6">
@@ -86,7 +86,7 @@ const HeroSection = () => {
           variants={fadeIn("left", 0.4)}
           initial="hidden"
           whileInView={"show"}
-          viewport={{ once: false, amount: 0.7 }}
+          viewport={{ once: true, amount: 0.7 }}
           exit="exit"
         >
           <div className="border-l-2 h-[90%] border-b-2 border-purple-300 dark:border-orange-200 rounded-md pl-2 hover:border-0">

@@ -58,7 +58,7 @@ const Carousel = () => {
         variants={fadeIn("right", 0.2)}
         initial="hidden"
         whileInView={"show"}
-        viewport={{ once: false, amount: 0.7 }}
+        viewport={{ once: true, amount: 0.7 }}
         exit="exit"
       >
         <CarouselOne skills={skills1} />
@@ -68,7 +68,7 @@ const Carousel = () => {
         variants={fadeIn("up", 0.2)}
         initial="hidden"
         whileInView={"show"}
-        viewport={{ once: false, amount: 0.7 }}
+        viewport={{ once: true, amount: 0.7 }}
         exit="exit"
       >
         <CarouselTwo skills={skills2} />
@@ -78,7 +78,7 @@ const Carousel = () => {
         variants={fadeIn("left", 0.2)}
         initial="hidden"
         whileInView={"show"}
-        viewport={{ once: false, amount: 0.7 }}
+        viewport={{ once: true, amount: 0.7 }}
         exit="exit"
       >
         <CarouselThree skills={skills3} />

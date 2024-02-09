@@ -31,7 +31,7 @@ const Projects = () => {
         variants={fadeIn("up", 0.4)}
         initial="hidden"
         whileInView={"show"}
-        viewport={{ once: false, amount: 0.7 }}
+        viewport={{ once: true, amount: 0.7 }}
         exit="exit"
       >
         My Work
