@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { Button } from "flowbite-react";
 
 const PostCard = ({ data }) => {
-  console.log(data);
+  // console.log(data);
   return (
     <div className="border border-blue-400 p-2 rounded-md ">
       <Link to={`/post/${data?.slug}`} className="flex flex-col">

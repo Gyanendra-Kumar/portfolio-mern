@@ -22,7 +22,7 @@ const Projects = () => {
     fetchProjects();
   }, []);
 
-  console.log(project);
+  // console.log(project);
   return (
     <div className="mt-16 sm:mt-24 max-w-6xl mx-auto">
       <h1 className="text-center text-4xl xl:text-5xl font-semibold mb-10">

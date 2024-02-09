@@ -37,7 +37,7 @@ const Header = () => {
     }
   }, [location.search]);
 
-  console.log(searchTerm);
+  // console.log(searchTerm);
 
   // sign out
   const handleSignOut = async () => {

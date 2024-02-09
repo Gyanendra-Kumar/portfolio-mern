@@ -52,8 +52,8 @@ const DashboardOverview = () => {
     }
   }, [currentUser]);
 
-  console.log("users: ", users, totalUsers, lastMonthUsers);
-  console.log("Posts", posts, totalPosts, lastMonthPosts);
+  // console.log("users: ", users, totalUsers, lastMonthUsers);
+  // console.log("Posts", posts, totalPosts, lastMonthPosts);
 
   return (
     <main className="p-3 md:mx-auto">

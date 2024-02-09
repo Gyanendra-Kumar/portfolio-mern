@@ -54,7 +54,7 @@ const DashboardUsers = () => {
     }
   };
 
-  console.log(users);
+  // console.log(users);
 
   useEffect(() => {
     if (currentUser?.isAdmin) {
@@ -62,7 +62,7 @@ const DashboardUsers = () => {
     }
   }, [currentUser?._id]);
 
-  console.log(currentUser);
+  // console.log(currentUser);
 
   const handleShowMore = () => {
     // const startIndex = userPosts.length;
@@ -85,7 +85,7 @@ const DashboardUsers = () => {
         method: "DELETE",
       });
       const data = await res.json();
-      console.log(data);
+      // console.log(data);
 
       if (res.ok) {
         setUsers((prev) => prev.filter((user) => user._id !== userIdToDelete));
