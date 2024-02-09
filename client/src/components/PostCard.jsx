@@ -1,11 +1,12 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { Button } from "flowbite-react";
+// motion
 
 const PostCard = ({ data }) => {
   // console.log(data);
   return (
-    <div className="border border-blue-400 p-2 rounded-md ">
+    <div className="border border-blue-400 p-2 rounded-md hover:shadow-3xl dark:hover:shadow-lg dark:hover:shadow-purple-400 transition-all duration-500">
       <Link to={`/post/${data?.slug}`} className="flex flex-col">
         <div className="overflow-hidden">
           <img

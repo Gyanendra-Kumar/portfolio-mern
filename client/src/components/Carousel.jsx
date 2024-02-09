@@ -48,12 +48,41 @@ const skills3 = [
   { name: "Next.JS", image: next },
 ];
 
+import { motion } from "framer-motion";
+import { fadeIn } from "../utils/variants";
+
 const Carousel = () => {
   return (
     <div className="flex flex-wrap gap-8 justify-evenly mt-6">
-      <CarouselOne skills={skills1} />
-      <CarouselTwo skills={skills2} />
-      <CarouselThree skills={skills3} />
+      <motion.div
+        variants={fadeIn("right", 0.2)}
+        initial="hidden"
+        whileInView={"show"}
+        viewport={{ once: false, amount: 0.7 }}
+        exit="exit"
+      >
+        <CarouselOne skills={skills1} />
+      </motion.div>
+
+      <motion.div
+        variants={fadeIn("up", 0.2)}
+        initial="hidden"
+        whileInView={"show"}
+        viewport={{ once: false, amount: 0.7 }}
+        exit="exit"
+      >
+        <CarouselTwo skills={skills2} />
+      </motion.div>
+
+      <motion.div
+        variants={fadeIn("left", 0.2)}
+        initial="hidden"
+        whileInView={"show"}
+        viewport={{ once: false, amount: 0.7 }}
+        exit="exit"
+      >
+        <CarouselThree skills={skills3} />
+      </motion.div>
     </div>
   );
 };

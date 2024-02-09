@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
-import { Alert, Button } from "flowbite-react";
-import { HiOutlineArrowRight } from "react-icons/hi";
 import PostCard from "../components/PostCard";
+
+// motion
+import { motion } from "framer-motion";
+import { fadeIn } from "../utils/variants";
 
 const Projects = () => {
   const [project, setProject] = useState([]);
@@ -25,9 +26,16 @@ const Projects = () => {
   // console.log(project);
   return (
     <div className="mt-16 sm:mt-24 max-w-6xl mx-auto">
-      <h1 className="text-center text-4xl xl:text-5xl font-semibold mb-10">
+      <motion.h1
+        className="text-center text-4xl xl:text-5xl font-semibold mb-10"
+        variants={fadeIn("up", 0.4)}
+        initial="hidden"
+        whileInView={"show"}
+        viewport={{ once: false, amount: 0.7 }}
+        exit="exit"
+      >
         My Work
-      </h1>
+      </motion.h1>
 
       <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3  justify-center gap-10 my-10">
         {project?.map((item) => (
