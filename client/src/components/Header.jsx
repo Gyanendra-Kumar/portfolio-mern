@@ -80,10 +80,6 @@ const Header = () => {
         />
       </form>
 
-      <Button className="w-12 h-10 lg:hidden" color="gray">
-        <AiOutlineSearch />
-      </Button>
-
       <div className="flex gap-2 md:order-2 items-center">
         <Button
           className="w-12 h-10 flex"
