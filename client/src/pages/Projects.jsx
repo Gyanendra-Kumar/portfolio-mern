@@ -32,7 +32,6 @@ const Projects = () => {
         initial="hidden"
         whileInView={"show"}
         viewport={{ once: true, amount: 0.7 }}
-        exit="exit"
       >
         My Work
       </motion.h1>
