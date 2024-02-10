@@ -189,7 +189,7 @@ const DashboardProfile = () => {
         />
 
         <div
-          className="w-32 h-32 cursor-pointer shadow-md overflow-hidden rounded-full relative"
+          className="w-32 h-32 cursor-pointer shadow-md overflow-hidden rounded-full bg-gray-400 relative"
           onClick={() => filePickerRef.current.click()}
         >
           {imageFileUploadingProgress && (
@@ -204,6 +204,7 @@ const DashboardProfile = () => {
                   position: "absolute",
                   top: 0,
                   left: 0,
+                  zIndex: 10,
                 },
                 path: {
                   stroke: `rgba(62,152, 199, ${
@@ -216,7 +217,7 @@ const DashboardProfile = () => {
           <Img
             src={imageFileUrl || currentUser.profilePhoto}
             alt="User profile"
-            className={`rounded-full w-[120px] h-[120px] object-cover border-8 border-[lightgray] ${
+            className={` rounded-full w-32 h-32 object-cover border-8 border-[lightgray] ${
               imageFileUploadingProgress &&
               imageFileUploadingProgress < 100 &&
               "opacity-60"
