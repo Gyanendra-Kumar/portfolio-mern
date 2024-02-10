@@ -8,6 +8,7 @@ import { toast } from "react-toastify";
 import { CircularProgressbar } from "react-circular-progressbar";
 import "react-circular-progressbar/dist/styles.css";
 import { useNavigate, useParams } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 const categoryOptions = [
   {
@@ -41,9 +42,11 @@ const UpdatePost = () => {
   const [formData, setFormData] = useState({});
   const [publishError, setPublishError] = useState(null);
 
+  const { currentUser } = useSelector((state) => state.user);
+  // console.log(formData);
+
   const navigate = useNavigate();
   const { postId } = useParams();
-  //   console.log(postId);
 
   useEffect(() => {
     try {
@@ -64,8 +67,6 @@ const UpdatePost = () => {
       setPublishError(error);
     }
   }, [postId]);
-
-  //   console.log(formData);
 
   const handleImageChange = (e) => {
     const file = e.target.files[0];
@@ -120,11 +121,11 @@ const UpdatePost = () => {
     }
   };
 
-  // console.log(formData);
+  console.log(formData);
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const res = await fetch(`/api/post/updatePost/${formData._id}`, {
+      const res = await fetch(`/api/post/updatePost/${formData?._id}`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
@@ -132,6 +133,7 @@ const UpdatePost = () => {
         body: JSON.stringify(formData),
       });
       const data = await res.json();
+
       console.log(data);
 
       if (!res.ok) {
@@ -141,7 +143,7 @@ const UpdatePost = () => {
 
       if (res.ok) {
         setPublishError(null);
-        navigate(`/post/${data.slug}`);
+        navigate(`/post/${data?.slug}`);
       }
     } catch (error) {
       setPublishError(`Something went wrong: ${error.message}`);
@@ -222,7 +224,12 @@ const UpdatePost = () => {
             theme="snow"
             placeholder="Project details..."
             className="h-72 tracking-wider"
-            onChange={(value) => setFormData({ ...formData, content: value })}
+            onChange={(value) =>
+              setFormData((prevData) => ({
+                ...prevData,
+                content: value,
+              }))
+            }
             value={formData.content}
           />
         </div>

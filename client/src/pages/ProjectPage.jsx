@@ -86,7 +86,7 @@ const ProjectPage = () => {
           <Img
             src={post?.image}
             alt={post?.title}
-            className="mt-10 p-3 max-h-[600px] w-full object-cover"
+            className="mt-10 p-3 max-h-[700px] w-full object-contain"
           />
 
           <div className="flex justify-between p-3 px-6 border-b border-b-slate-300 text-sm">
@@ -114,7 +114,7 @@ const ProjectPage = () => {
         <CallToAction />
       </div>
 
-      <div className="flex flex-col justify-center items-center mb-5">
+      <div className="flex flex-col justify-center items-center mb-5 max-w-5xl mx-auto">
         <h1 className="text-xl my-5 border-b-2 border-gray-500 ">
           Recent Projects
         </h1>

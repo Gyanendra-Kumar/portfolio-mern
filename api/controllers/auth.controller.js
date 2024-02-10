@@ -66,8 +66,7 @@ export const signIn = async (req, res, next) => {
         isEditor: validUser.isEditor,
         isUser: validUser.isUser,
       },
-      process.env.JWT_SECRET_KEY,
-      { expiresIn: "120s" }
+      process.env.JWT_SECRET_KEY
     );
 
     const { password: _pass, ...rest } = validUser._doc;
