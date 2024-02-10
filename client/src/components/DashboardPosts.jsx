@@ -7,6 +7,7 @@ import { RiDeleteBin4Line } from "react-icons/ri";
 import { HiOutlineExclamationCircle } from "react-icons/hi";
 import { toast } from "react-toastify";
 import Loader from "./Loader";
+import Img from "./Img";
 
 const tableHead = [
   { name: "SL No." },
@@ -32,7 +33,6 @@ const DashboardPosts = () => {
 
   const editorUrl = `/api/post/getPosts?userId=${currentUser._id}&startIndex=${startIndex}`;
   const adminUrl = `/api/post/getPosts?startIndex=${startIndex}`;
-  
 
   const fetchPosts = async (url) => {
     try {
@@ -127,7 +127,7 @@ const DashboardPosts = () => {
                       </Table.Cell>
                       <Table.Cell>
                         <Link to={`/post/${userPost?.slug}`}>
-                          <img
+                          <Img
                             src={userPost?.image}
                             alt={userPost?.title}
                             className="w-28 h-16 object-cover bg-gray-500"

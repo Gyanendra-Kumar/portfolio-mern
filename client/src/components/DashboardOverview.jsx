@@ -5,6 +5,7 @@ import { HiDocumentText } from "react-icons/hi2";
 import { FaUsers } from "react-icons/fa";
 import { Button, Table } from "flowbite-react";
 import { Link } from "react-router-dom";
+import Img from "./Img";
 
 const DashboardOverview = () => {
   const [users, setUsers] = useState([]);
@@ -123,7 +124,7 @@ const DashboardOverview = () => {
                 <Table.Body key={user?._id} className="divide-y">
                   <Table.Row className="bg-white dark:border-gray-700 dark:bg-gray-800">
                     <Table.Cell className="flex justify-center">
-                      <img
+                      <Img
                         src={user?.profilePhoto}
                         alt={user?.username}
                         className="w-10 h-10 rounded-full bg-gray-500"
@@ -170,7 +171,7 @@ const DashboardOverview = () => {
                 <Table.Body key={post?._id} className="divide-y">
                   <Table.Row className="bg-white dark:border-gray-700 dark:bg-gray-800">
                     <Table.Cell className="flex justify-center">
-                      <img
+                      <Img
                         src={post?.image}
                         alt={post?.title}
                         className="w-10 h-10 rounded-md bg-gray-500"

@@ -18,6 +18,7 @@ import { useDispatch } from "react-redux";
 import { HiOutlineExclamationCircle } from "react-icons/hi";
 import { toast } from "react-toastify";
 import { Link } from "react-router-dom";
+import Img from "./Img";
 
 const DashboardProfile = () => {
   const [imageFile, setImageFile] = useState(null);
@@ -212,10 +213,10 @@ const DashboardProfile = () => {
               }}
             />
           )}
-          <img
+          <Img
             src={imageFileUrl || currentUser.profilePhoto}
             alt="User profile"
-            className={`rounded-full w-full h-full object-cover border-8 border-[lightgray] ${
+            className={`rounded-full w-[120px] h-[120px] object-cover border-8 border-[lightgray] ${
               imageFileUploadingProgress &&
               imageFileUploadingProgress < 100 &&
               "opacity-60"

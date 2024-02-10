@@ -6,6 +6,7 @@ import { HiOutlineExclamationCircle } from "react-icons/hi";
 import { toast } from "react-toastify";
 import { FaCheck, FaTimes } from "react-icons/fa";
 import Loader from "./Loader";
+import Img from "./Img";
 
 const tableHead = [
   { name: "SL No." },
@@ -126,7 +127,7 @@ const DashboardUsers = () => {
                       {new Date(user?.createdAt).toLocaleDateString()}
                     </Table.Cell>
                     <Table.Cell>
-                      <img
+                      <Img
                         src={user?.profilePhoto}
                         alt={user?.username}
                         className="w-14 h-14 object-cover rounded-full bg-gray-500"
