@@ -7,7 +7,7 @@ import Img from "./Img";
 const PostCard = ({ data }) => {
   // console.log(data);
   return (
-    <div className="border border-blue-400 p-2 rounded-md hover:shadow-3xl dark:hover:shadow-lg dark:hover:shadow-purple-400 transition-all duration-500">
+    <div className="border w-80 xl:w-96 border-blue-400 p-2 rounded-md hover:shadow-3xl dark:hover:shadow-lg dark:hover:shadow-purple-400 transition-all duration-500">
       <Link to={`/post/${data?.slug}`} className="flex flex-col">
         <div className="overflow-hidden transition-all duration-500 rounded-md">
           <Img

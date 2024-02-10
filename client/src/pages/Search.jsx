@@ -145,10 +145,10 @@ const Search = () => {
           {isLoading ? (
             <Loader />
           ) : (
-            <>
+            <div>
               {posts?.length > 0 &&
                 posts?.map((post) => <PostCard key={post?._id} data={post} />)}
-            </>
+            </div>
           )}
         </div>
       </div>

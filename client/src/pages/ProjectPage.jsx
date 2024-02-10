@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { Suspense, lazy, useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import Loader from "../components/Loader";
 import { Alert, Button } from "flowbite-react";
@@ -8,6 +8,9 @@ import { HiInformationCircle } from "react-icons/hi";
 import PostCard from "../components/PostCard";
 import Img from "../components/Img";
 
+// LAZY LOADING MODAL IMAGES
+const ImageModal = lazy(() => import("../components/ImageModal"));
+
 const ProjectPage = () => {
   const { slug } = useParams();
 
@@ -15,6 +18,21 @@ const ProjectPage = () => {
   const [error, setError] = useState(false);
   const [post, setPost] = useState(null);
   const [recentPosts, setRecentPosts] = useState(null);
+
+  // modal useState
+  const [isOpen, setIsOpen] = useState(false);
+  const [selectedImage, setSelectedImage] = useState(null);
+
+  const openModal = (images) => {
+    setSelectedImage(images);
+    setIsOpen(true);
+  };
+  // console.log(selectedImage);
+
+  const onClose = () => {
+    setSelectedImage(null);
+    setIsOpen(false);
+  };
 
   const recentPostUrl = `/api/post/getPosts?limit=3`;
 
@@ -82,12 +100,17 @@ const ProjectPage = () => {
               {post?.category}
             </Button>
           </Link>
-          <div></div>
-          <Img
-            src={post?.image}
-            alt={post?.title}
-            className="mt-10 p-3 max-h-[700px] w-full object-contain"
-          />
+
+          <div
+            onClick={() => openModal(post?.image)}
+            className="max-h-[700px] w-full flex justify-center"
+          >
+            <Img
+              src={post?.image}
+              alt={post?.title}
+              className="mt-10 p-3 max-h-[700px] w-full object-cover"
+            />
+          </div>
 
           <div className="flex justify-between p-3 px-6 border-b border-b-slate-300 text-sm">
             <span>
@@ -124,6 +147,19 @@ const ProjectPage = () => {
           ))}
         </div>
       </div>
+
+      {/* opening modal */}
+
+      {isOpen && (
+        <Suspense fallback={<Loader />}>
+          <ImageModal
+            isOpen={isOpen}
+            onClose={onClose}
+            imageUrl={selectedImage}
+            imageTitle={post?.title}
+          />
+        </Suspense>
+      )}
     </main>
   );
 };
