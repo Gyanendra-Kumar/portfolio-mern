@@ -10,6 +10,7 @@ import { Button, Tooltip } from "flowbite-react";
 // motion
 import { motion } from "framer-motion";
 import { fadeIn } from "../utils/variants";
+import Img from "./Img";
 
 const HeroSection = () => {
   return (
@@ -91,7 +92,7 @@ const HeroSection = () => {
         >
           <div className="border-l-2 h-[90%] border-b-2 border-purple-300 dark:border-orange-200 rounded-md pl-2 hover:border-0">
             <div className="hover:shadow-2xl hover:shadow-slate-500 rounded-md hover:border-gray-600 before:hover:rotate-45 transition-all duration-500">
-              <img
+              <Img
                 src={myImage}
                 alt="gyanendra_kumar"
                 className="w-52 h-52 sm:w-72 sm:h-auto lg:w-96 object-cover hover:scale-110 transition-all duration-500 mb-4"

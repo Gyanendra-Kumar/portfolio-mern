@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import ctaImage from "../assets/cta.avif";
 import { Button } from "flowbite-react";
 import { Link } from "react-router-dom";
+import Img from "./Img";
 
 const CallToAction = () => {
   return (
@@ -25,7 +26,7 @@ const CallToAction = () => {
         </Button>
       </div>
       <div className="flex-1 overflow-hidden hover:rounded-md transition-all duration-500">
-        <img
+        <Img
           src={ctaImage}
           alt="project image"
           className="hover:scale-105 transition-all duration-500"
