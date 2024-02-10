@@ -6,6 +6,7 @@ import { HiOutlineExclamationCircle } from "react-icons/hi";
 import { toast } from "react-toastify";
 import { FaCheck, FaTimes } from "react-icons/fa";
 import Loader from "./Loader";
+import Img from "./Img";
 
 const tableHead = [
   { name: "SL No." },
@@ -54,7 +55,7 @@ const DashboardUsers = () => {
     }
   };
 
-  console.log(users);
+  // console.log(users);
 
   useEffect(() => {
     if (currentUser?.isAdmin) {
@@ -62,7 +63,7 @@ const DashboardUsers = () => {
     }
   }, [currentUser?._id]);
 
-  console.log(currentUser);
+  // console.log(currentUser);
 
   const handleShowMore = () => {
     // const startIndex = userPosts.length;
@@ -85,7 +86,7 @@ const DashboardUsers = () => {
         method: "DELETE",
       });
       const data = await res.json();
-      console.log(data);
+      // console.log(data);
 
       if (res.ok) {
         setUsers((prev) => prev.filter((user) => user._id !== userIdToDelete));
@@ -126,7 +127,7 @@ const DashboardUsers = () => {
                       {new Date(user?.createdAt).toLocaleDateString()}
                     </Table.Cell>
                     <Table.Cell>
-                      <img
+                      <Img
                         src={user?.profilePhoto}
                         alt={user?.username}
                         className="w-14 h-14 object-cover rounded-full bg-gray-500"

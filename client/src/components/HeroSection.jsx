@@ -7,12 +7,23 @@ import { Link } from "react-router-dom";
 import myImage from "../assets/gyanendra-photo.png";
 import { Button, Tooltip } from "flowbite-react";
 
+// motion
+import { motion } from "framer-motion";
+import { fadeIn } from "../utils/variants";
+
 const HeroSection = () => {
   return (
     <>
-      <div className="flex flex-col max-sm:gap-10 gap-6 pl-6 sm:flex-row py-10 sm:py-10 md:py-20 lg:py-32">
+      <motion.div className="flex flex-col max-sm:gap-10 gap-6 pl-6 sm:flex-row py-10 sm:py-10 md:py-20 lg:py-32">
         {/* left side */}
-        <div className="flex-1 flex-col gap-4 px-4">
+        <motion.div
+          className="flex-1 flex-col gap-4 px-4"
+          variants={fadeIn("right", 0.4)}
+          initial="hidden"
+          whileInView={"show"}
+          viewport={{ once: true, amount: 0.7 }}
+          exit="exit"
+        >
           <div className="mb-6">
             <DrawButton className="text-lg max-sm:text-center uppercase tracking-[4px] font-semibold text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-600">
               Welcome to my PortFolio
@@ -67,10 +78,18 @@ const HeroSection = () => {
               </Tooltip>
             </div>
           </div>
-        </div>
+        </motion.div>
+
         {/* right side */}
-        <div className="flex-1 flex justify-center max-sm:items-center cursor-pointer">
-          <div className="border-l-2 h-[90%] border-b-2 border-purple-300 dark:border-orange-200 rounded-md pl-2 hover:border-0">
+        <motion.div
+          className="flex-1 flex justify-center max-sm:items-center cursor-pointer"
+          variants={fadeIn("left", 0.4)}
+          initial="hidden"
+          whileInView={"show"}
+          viewport={{ once: true, amount: 0.7 }}
+          exit="exit"
+        >
+          <div className="border-l-2 sm:h-[57%] lg:h-[80%] xl:h-[90%] border-b-2 border-purple-300 dark:border-orange-200 rounded-md pl-2 hover:border-0">
             <div className="hover:shadow-2xl hover:shadow-slate-500 rounded-md hover:border-gray-600 before:hover:rotate-45 transition-all duration-500">
               <img
                 src={myImage}
@@ -79,8 +98,8 @@ const HeroSection = () => {
               />
             </div>
           </div>
-        </div>
-      </div>
+        </motion.div>
+      </motion.div>
     </>
   );
 };

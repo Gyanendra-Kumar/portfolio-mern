@@ -6,6 +6,7 @@ import CallToAction from "../components/CallToAction";
 
 import { HiInformationCircle } from "react-icons/hi";
 import PostCard from "../components/PostCard";
+import Img from "../components/Img";
 
 const ProjectPage = () => {
   const { slug } = useParams();
@@ -82,7 +83,7 @@ const ProjectPage = () => {
             </Button>
           </Link>
           <div></div>
-          <img
+          <Img
             src={post?.image}
             alt={post?.title}
             className="mt-10 p-3 max-h-[600px] w-full object-cover"

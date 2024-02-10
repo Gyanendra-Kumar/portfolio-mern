@@ -9,11 +9,15 @@ import connectDB from "./config/db.js";
 import userRoutes from "./routes/user.route.js";
 import authRoutes from "./routes/auth.route.js";
 import postRouter from "./routes/post.route.js";
+import path from "path";
 
 // connect to DB
 connectDB();
 
+const __dirname = path.resolve();
+
 const app = express();
+
 app.use(express.json());
 app.use(cookieParser());
 
@@ -28,6 +32,13 @@ app.listen(3000, () => {
 app.use("/api/user", userRoutes);
 app.use("/api/auth", authRoutes);
 app.use("/api/post", postRouter);
+
+// static folders
+app.use(express.static(path.join(__dirname, "/client/dist")));
+
+app.get("*", (req, res) => {
+  res.sendFile(path.join(__dirname, "client", "dist", "index.html"));
+});
 
 // middlewares
 app.use((err, req, res, next) => {

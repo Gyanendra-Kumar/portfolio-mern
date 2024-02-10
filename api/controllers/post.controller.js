@@ -24,13 +24,13 @@ export const create = async (req, res, next) => {
       slug,
       userId: req.user.id,
     });
-    console.log(newPost);
+
     res.status(201).json({ success: true, data: newPost });
   } catch (error) {
     next(error);
   }
 };
-
+// console.log(newPost);
 // CONTROLLERS TO GET ALL
 export const getPosts = async (req, res, next) => {
   try {

@@ -16,6 +16,8 @@ import { MdDashboard } from "react-icons/md";
 import { FaSignOutAlt } from "react-icons/fa";
 import { toggleTheme } from "../redux/theme/themeSlice";
 import { signoutSuccess } from "../redux/user/userSlice";
+import { motion } from "framer-motion";
+import { containerVariants, fadeIn } from "../utils/variants";
 
 const Header = () => {
   const path = useLocation().pathname;
@@ -37,7 +39,7 @@ const Header = () => {
     }
   }, [location.search]);
 
-  console.log(searchTerm);
+  // console.log(searchTerm);
 
   // sign out
   const handleSignOut = async () => {
@@ -66,89 +68,97 @@ const Header = () => {
   };
 
   return (
-    <Navbar className="border-b-2">
-      <Logo className="self-center whitespace-nowrap text-sm sm:text-xl font-semibold dark:text-white tracking-wide" />
+    <motion.header
+      variants={containerVariants}
+      initial="hidden"
+      animate="visible"
+    >
+      <Navbar className="border-b-2">
+        <Logo className="self-center whitespace-nowrap text-sm sm:text-xl font-semibold dark:text-white tracking-wide" />
 
-      <form onSubmit={handleSubmit}>
-        <TextInput
-          type="text"
-          placeholder="Search..."
-          rightIcon={AiOutlineSearch}
-          className="hidden lg:inline"
-          value={searchTerm}
-          onChange={(e) => setSearchTerm(e.target.value)}
-        />
-      </form>
+        <form onSubmit={handleSubmit}>
+          <TextInput
+            type="text"
+            placeholder="Search..."
+            rightIcon={AiOutlineSearch}
+            className="hidden lg:inline"
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+          />
+        </form>
 
-      <Button className="w-12 h-10 lg:hidden" color="gray">
-        <AiOutlineSearch />
-      </Button>
-
-      <div className="flex gap-2 md:order-2 items-center">
-        <Button
-          className="w-12 h-10 flex"
-          color="gray"
-          onClick={() => dispatch(toggleTheme())}
-        >
-          {theme === "light" ? <FaSun /> : <FaMoon />}
-        </Button>
-
-        {currentUser ? (
-          <Dropdown
-            size="10px"
-            outline
-            arrowIcon={false}
-            gradientDuoTone="redToYellow"
-            label={
-              <Avatar
-                alt="user"
-                img={currentUser.profilePhoto}
-                rounded
-                size="sm"
-                className="w-10 h-10"
-              />
-            }
+        <div className="flex gap-2 md:order-2 items-center">
+          <Button
+            className="w-12 h-10 flex"
+            color="gray"
+            onClick={() => dispatch(toggleTheme())}
           >
-            <Dropdown.Header>
-              <span className="block text-sm">@{currentUser.username}</span>
-              <span className="block truncate text-sm font-medium">
-                {currentUser.email}
-              </span>
-            </Dropdown.Header>
-            <Link to="/dashboard?tab=profile">
-              <Dropdown.Item icon={MdDashboard}>Profile</Dropdown.Item>
-            </Link>
-            <Dropdown.Divider />
-            <Dropdown.Item icon={FaSignOutAlt} onClick={handleSignOut}>
-              Sign Out
-            </Dropdown.Item>
-          </Dropdown>
-        ) : (
-          <Link to="/sign-in">
-            <Button gradientDuoTone="purpleToBlue" outline>
-              Sign In
-            </Button>
-          </Link>
-        )}
+            {theme === "light" ? <FaSun /> : <FaMoon />}
+          </Button>
 
-        <NavbarToggle />
-      </div>
+          {currentUser ? (
+            <Dropdown
+              size="10px"
+              outline
+              arrowIcon={false}
+              gradientDuoTone="redToYellow"
+              label={
+                <Avatar
+                  alt="user"
+                  img={currentUser.profilePhoto}
+                  rounded
+                  size="sm"
+                  className="w-10 h-10"
+                />
+              }
+            >
+              <Dropdown.Header>
+                <span className="block text-sm">@{currentUser.username}</span>
+                <span className="block truncate text-sm font-medium">
+                  {currentUser.email}
+                </span>
+              </Dropdown.Header>
+              <Link to="/dashboard?tab=profile">
+                <Dropdown.Item icon={MdDashboard}>Profile</Dropdown.Item>
+              </Link>
+              <Dropdown.Divider />
+              <Dropdown.Item icon={FaSignOutAlt} onClick={handleSignOut}>
+                Sign Out
+              </Dropdown.Item>
+            </Dropdown>
+          ) : (
+            <motion.div
+              variants={fadeIn("down", 0.4)}
+              initial="hidden"
+              animate="show"
+            >
+              <Link to="/sign-in">
+                <Button gradientDuoTone="purpleToBlue" outline>
+                  Sign In
+                </Button>
+              </Link>
+            </motion.div>
+          )}
 
-      <Navbar.Collapse>
-        <Navbar.Link as={"div"} active={path === "/"}>
-          <Link to="/">Home</Link>
-        </Navbar.Link>
-        <Navbar.Link as={"div"} active={path === "/about"}>
-          <Link to="/about">About</Link>
-        </Navbar.Link>
-        <Navbar.Link as={"div"} active={path === "/projects"}>
-          <Link to="/projects">Projects</Link>
-        </Navbar.Link>
-        <Navbar.Link as={"div"} active={path === "/contact"}>
-          <Link to="/contact">Contact Me</Link>
-        </Navbar.Link>
-      </Navbar.Collapse>
-    </Navbar>
+          <NavbarToggle />
+        </div>
+
+        <Navbar.Collapse>
+          <Navbar.Link as={"div"} active={path === "/"}>
+            <Link to="/">Home</Link>
+          </Navbar.Link>
+          <Navbar.Link as={"div"} active={path === "/about"}>
+            <Link to="/about">About</Link>
+          </Navbar.Link>
+          <Navbar.Link as={"div"} active={path === "/projects"}>
+            <Link to="/projects">Projects</Link>
+          </Navbar.Link>
+          <Navbar.Link as={"div"} active={path === "/contact"}>
+            <Link to="/contact">Contact Me</Link>
+          </Navbar.Link>
+        </Navbar.Collapse>
+      </Navbar>
+    </motion.header>
   );
 };
 

@@ -9,6 +9,7 @@ import "swiper/css/pagination";
 
 // import required modules
 import { EffectCube, Pagination, Autoplay } from "swiper/modules";
+import Img from "../Img";
 
 const CarouselThree = ({ skills }) => {
   return (
@@ -39,12 +40,7 @@ const CarouselThree = ({ skills }) => {
                   key={skill.index}
                 >
                   <p className="text-xl text-white">{skill.name}</p>
-                  <div className="w-18 h-16">
-                    <img
-                      src={skill.image}
-                      className="w-full h-full object-cover"
-                    />
-                  </div>
+                  <Img src={skill.image} className="w-18 h-16 object-cover" />
                 </div>
               </div>
             </SwiperSlide>

@@ -62,8 +62,8 @@ const Search = () => {
     fetchPosts();
   }, [location.search]);
 
-  console.log(sidebarData);
-  console.log(posts);
+  // console.log(sidebarData);
+  // console.log(posts);
 
   const handleChange = (e) => {
     if (e.target.id === "searchTerm") {

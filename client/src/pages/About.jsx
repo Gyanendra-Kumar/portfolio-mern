@@ -7,6 +7,7 @@ import { Link } from "react-router-dom";
 import myImage from "../assets/gyanendra-photo.png";
 import { Button, Tooltip } from "flowbite-react";
 import CallToAction from "../components/CallToAction";
+import Img from "../components/Img";
 
 const About = () => {
   return (
@@ -17,7 +18,7 @@ const About = () => {
         <div className="flex-1 flex justify-center items-center transition-all duration-500">
           <div className="border-l-4 rounded-md border-b-4 border-slate-600 dark:border-red-300 ">
             <div className="shadow-md shadow-slate-500 rounded-md mb-4 ml-4">
-              <img
+              <Img
                 src={myImage}
                 alt="gyanendra_kumar"
                 className="w-52 h-52 sm:w-72 sm:h-auto lg:w-96 object-cover scale-95"

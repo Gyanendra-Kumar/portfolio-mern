@@ -32,7 +32,7 @@ export const signup = async (req, res, next) => {
       password: hashedPassword,
     });
 
-    console.log(newUser);
+    // console.log(newUser);
     res.status(201).json({ success: `New user created!` });
   } catch (error) {
     next(error);
