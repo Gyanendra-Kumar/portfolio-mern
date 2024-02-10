@@ -103,12 +103,12 @@ const ProjectPage = () => {
 
           <div
             onClick={() => openModal(post?.image)}
-            className="max-h-[700px] w-full flex justify-center"
+            className="max-h-[600px] max-w-6xl w-full flex justify-center"
           >
             <Img
               src={post?.image}
               alt={post?.title}
-              className="mt-10 p-3 max-h-[700px] w-full object-cover"
+              className="p-3 max-h-[600px] w-full object-contain"
             />
           </div>
 
