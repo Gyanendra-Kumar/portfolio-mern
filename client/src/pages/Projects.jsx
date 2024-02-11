@@ -25,7 +25,7 @@ const Projects = () => {
 
   // console.log(project);
   return (
-    <div className="mt-16 px-4 sm:mt-24 max-w-6xl mx-auto">
+    <div className="mt-16 px-4 sm:mt-24 max-w-7xl mx-auto">
       <motion.h1
         className="text-center text-4xl xl:text-5xl font-semibold mb-10"
         variants={fadeIn("up", 0.4)}
@@ -36,7 +36,7 @@ const Projects = () => {
         My Work
       </motion.h1>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3  justify-center gap-10 my-10">
+      <div className="flex flex-wrap justify-center gap-10 my-10">
         {project?.map((item) => (
           <PostCard key={item?._id} data={item} />
         ))}

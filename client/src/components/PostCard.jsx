@@ -7,7 +7,7 @@ import Img from "./Img";
 const PostCard = ({ data }) => {
   // console.log(data);
   return (
-    <div className="border w-80 xl:w-96 border-blue-400 p-2 rounded-md hover:shadow-3xl dark:hover:shadow-lg dark:hover:shadow-purple-400 transition-all duration-500">
+    <div className="border w-80  border-blue-400 p-2 rounded-md hover:shadow-3xl dark:hover:shadow-lg dark:hover:shadow-purple-400 transition-all duration-500">
       <Link to={`/post/${data?.slug}`} className="flex flex-col">
         <div className="overflow-hidden transition-all duration-500 rounded-md">
           <Img
@@ -16,9 +16,11 @@ const PostCard = ({ data }) => {
             className="h-[200px] w-[400px] object-cover  transition-all ease-linear duration-500 rounded-md transform hover:scale-105"
           />
         </div>
-        <div className="py-2 flex justify-between px-4">
-          <p className="text-lg capitalize line-clamp-2">{data?.title}</p>
-          <span className="italic text-sm">{data?.category}</span>
+        <div className="py-2 flex justify-between px-4 gap-2 items-center">
+          <p className="text-lg capitalize line-clamp-1">{data?.title}</p>
+          <span className="italic text-sm text-orange-400">
+            {data?.category}
+          </span>
         </div>
       </Link>
 

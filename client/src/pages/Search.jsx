@@ -145,7 +145,7 @@ const Search = () => {
           {isLoading ? (
             <Loader />
           ) : (
-            <div>
+            <div className="flex flex-wrap gap-4">
               {posts?.length > 0 &&
                 posts?.map((post) => <PostCard key={post?._id} data={post} />)}
             </div>

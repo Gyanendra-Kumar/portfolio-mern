@@ -103,12 +103,12 @@ const ProjectPage = () => {
 
           <div
             onClick={() => openModal(post?.image)}
-            className="max-h-[600px] max-w-6xl w-full flex justify-center"
+            className="max-h-[600px] max-w-6xl flex justify-center"
           >
             <Img
               src={post?.image}
               alt={post?.title}
-              className="p-3 max-h-[600px] w-full object-contain"
+              className="p-3 max-h-[600px] w-[1400px] object-cover"
             />
           </div>
 
@@ -137,11 +137,11 @@ const ProjectPage = () => {
         <CallToAction />
       </div>
 
-      <div className="flex flex-col justify-center items-center mb-5 max-w-5xl mx-auto">
+      <div className="flex flex-col justify-center items-center mb-5 max-w-7xl mx-auto">
         <h1 className="text-xl my-5 border-b-2 border-gray-500 ">
           Recent Projects
         </h1>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 p-4">
+        <div className="flex flex-wrap justify-center gap-4 p-4">
           {recentPosts?.map((recentPost) => (
             <PostCard key={recentPost?._id} data={recentPost} />
           ))}
