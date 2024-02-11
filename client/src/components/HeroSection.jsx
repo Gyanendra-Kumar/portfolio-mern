@@ -25,7 +25,7 @@ const HeroSection = () => {
           exit="exit"
         >
           <div className="mb-6">
-            <DrawButton className="text-lg max-sm:text-center uppercase tracking-[4px] font-semibold text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-600">
+            <DrawButton className="text-lg max-sm:text-center uppercase tracking-[4px] font-semibold text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-600 z-0">
               Welcome to my PortFolio
             </DrawButton>
           </div>

@@ -108,21 +108,27 @@ const Header = () => {
                   img={currentUser.profilePhoto}
                   rounded
                   size="sm"
-                  className="w-10 h-10"
+                  className="w-10 h-10 z-20"
                 />
               }
             >
-              <Dropdown.Header>
+              <Dropdown.Header className="z-20 ">
                 <span className="block text-sm">@{currentUser.username}</span>
                 <span className="block truncate text-sm font-medium">
                   {currentUser.email}
                 </span>
               </Dropdown.Header>
               <Link to="/dashboard?tab=profile">
-                <Dropdown.Item icon={MdDashboard}>Profile</Dropdown.Item>
+                <Dropdown.Item icon={MdDashboard} className="z-20">
+                  Profile
+                </Dropdown.Item>
               </Link>
               <Dropdown.Divider />
-              <Dropdown.Item icon={FaSignOutAlt} onClick={handleSignOut}>
+              <Dropdown.Item
+                icon={FaSignOutAlt}
+                onClick={handleSignOut}
+                className="z-20"
+              >
                 Sign Out
               </Dropdown.Item>
             </Dropdown>
